@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:textSize="14sp"
+        android:text="name" />
+
+    <TextView
+        android:id="@+id/createdTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/label"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="time" />
+
+</RelativeLayout>
+<!-- From: file:/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/src/main/res/layout/tt_item.xml -->

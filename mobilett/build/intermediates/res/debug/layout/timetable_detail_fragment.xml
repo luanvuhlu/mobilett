@@ -1,0 +1,17 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/gray"
+    android:orientation="vertical"
+    tools:context="com.bigbear.mobilett.MainActivity$PlaceholderFragment" >
+ <com.thehayro.view.InfiniteViewPager
+        android:id="@+id/infinite_viewpager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+ >
+</com.thehayro.view.InfiniteViewPager>
+   
+</LinearLayout><!-- From: file:/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/src/main/res/layout/timetable_detail_fragment.xml -->

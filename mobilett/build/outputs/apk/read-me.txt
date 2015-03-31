@@ -1,0 +1,9 @@
+Start
+Chắc chắn rằng điện thoại đang được kết nối mạng
+Ấn vào nút có hình dấu + để thêm mới.
+Nút sẽ thoáng chuyển sang màu xanh lục rồi chuyển qua màu trắng
+Đến khi nút chuyển qua màu xanh và xuất hiện thêm danh sách 1 thời khóa biểu
+Click vào thời khóa biểu để xem chi tiết
+---- Khi đang ở màn hình thời khóa:
+Trượt qua trái, phải để thay đổi ngày
+Giờ có màu vàng cam là giờ thảo 

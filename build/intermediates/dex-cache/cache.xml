@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/timetable-v1-1.19.0-SNAPSHOT.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="7fc9d4fbd27200e6f70915ae2d182c7f964fe2b1">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/timetable-v1-1.19.0-SNAPSHOT-71972b3574718a73136a23d7988765311beb4bc5.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/httpcore-4.0.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e813b8722c387b22e1adccf7914729db09bcb4a9">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/httpcore-4.0.1-0fe6edf36afa4f286fc5cff9dd19e0af6d1287e3.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/httpclient-4.0.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1d7d28fa738bdbfe4fbd895d9486308999bdf440">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/httpclient-4.0.1-adedb359bbd26379357afd1c410ed621254cfebd.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/library-2.4.0-1693eaa00e3860ae0b4ee0d823add0231d779fb8.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/exploded-aar/com.felipecsl.asymmetricgridview/library/1.1.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="f13add38f8ba563cded707cd5725200e4c4ddf49">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/classes-824b0542e8b0300c0e566242b4b1620f8a908137.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-http-client-android-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="cc519375a59b88327d65b79172798e7e6417bc78">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-http-client-android-1.18.0-rc-75073132731ae84513fa7dabf332ef159b4cef23.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-1b874bbdb67b1b960f65ff898aa92d8bf3376563.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-oauth-client-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="030281a66559f60a491748974ac17cec3483b873">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-oauth-client-1.18.0-rc-368d05e64227a1f1a338d8a62b8d4054d0229f15.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3/5fc52c41ef0239d1093a1eb7c3697036183677ce/gson-2.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="5fc52c41ef0239d1093a1eb7c3697036183677ce">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/gson-2.3-21fe29845407f7de594ab86fdce6736deed3c645.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-oauth-client-java6-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b704ff80c682dab0f64a784eaf1a9ed7d58b531d">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-oauth-client-java6-1.18.0-rc-a226d89d94110a3911fca1d17bd790dcd44b6723.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-oauth-client-servlet-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="63d9deb87a116b665730d5e8321a4b60e1a55e71">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-oauth-client-servlet-1.18.0-rc-14e4907dc3ddf7597c4c14874758640f3634e465.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-api-client-xml-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="7af8b2b05608938f4a5f970785e7bce83fa9bbaa">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-api-client-xml-1.18.0-rc-66fcf722e191f4fc64ff29d28c0490b3ee4bdcf7.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-http-client-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="880ad30d2b249a7591c195c2392646f1b146c139">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-http-client-1.18.0-rc-4d7fe52d76afe1f16dd44dec9d49fd50230fff46.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/classes-38fe16901a4d28e137fddea153a6e42405269dc7.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-http-client-appengine-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="039d065c59da6b41527df708bdfd3a52b44bc87b">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-http-client-appengine-1.18.0-rc-ad9ba40b442312012458ab2cdaaff84ddf7fab0f.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-api-client-protobuf-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="960e2115217edbf1621682eac0abc0097d0619d6">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-api-client-protobuf-1.18.0-rc-ca6f3c4ce1011831d1512bfe1c4b5291a8c10779.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-http-client-protobuf-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="99047e4c7d122ac651553cc8b15df6bdece12fd0">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-http-client-protobuf-1.18.0-rc-efdfe8c65c329cc925a08b340933496e0b852d16.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-http-client-jackson2-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="5cc2dc4e3ba7f626c1a9db4fc5d2460c22275474">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-http-client-jackson2-1.18.0-rc-db9f444a96e455fe6fdcf7eee8048a57c077d454.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/Data/android-sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-2c88179b11089df9e5ed16f538351ddfb0678881.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-api-client-jackson2-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4eab790cae32ad13362818bdfefd32259ea01dad">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-api-client-jackson2-1.18.0-rc-4f1ff7d6c5cf8e141ba2ac00c6e23c9c9e380756.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-api-client-appengine-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="c95aede2a07361872dc6d562ba98ebec3d16035c">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-api-client-appengine-1.18.0-rc-41bd2d2b9c928f2b5a113bfa56ca02bb4439e786.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-api-client-servlet-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d76afa2ad166286c810658b68a4cf902fb92a426">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-api-client-servlet-1.18.0-rc-ccebcfe686a0f9dedd0e05cd9a4ed9368924175d.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/classes-a32aa516e5579fedf6f1c02065b07416f4ec230f.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-oauth-client-appengine-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a3e34a38e1a60b432c4c00370ef6bdc7ea4e343f">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-oauth-client-appengine-1.18.0-rc-f14197b05ccc246ef8bf216a0068eae0f052b902.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-http-client-xml-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a1ec1a695625d9a514962f0b93400fcdd1897223">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-http-client-xml-1.18.0-rc-94286c43caef7a754c82ba04a89d9825df65d073.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-api-client-java6-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="7a05c4962d2bafacd47361ac50773cf3807549bb">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-api-client-java6-1.18.0-rc-b696fa39e154a84ed7a637a5ba2ae9a4e5d9946f.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-api-client-android-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="5a61d590275464895d783fb1612418964e20162e">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-api-client-android-1.18.0-rc-37ce44ba062495f7b2aa8b490badef29f5d1d04d.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-oauth-client-jetty-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0edd5feffead32ca91562b2b1c126f058f5978f1">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-oauth-client-jetty-1.18.0-rc-25f25e3c55afdf47166e806d659aba52adc84d9f.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/exploded-aar/com.github.navasmdc/MaterialDesign/1.4/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="87405405e403de68f4057757b8a2e8de02bd65d0">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/classes-046be26baf07d09b12b0ec0ffb2dcc2043aed45b.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/jsr305-1.3.9.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/jsr305-1.3.9-bea50a1644aac99a111c85792da63f2fd67bf907.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-http-client-jackson-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="41709e65945d199103630eea319225cc12b40044">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-http-client-jackson-1.18.0-rc-a04cca2a42a72b21a43ce978f5acda07692eb632.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/exploded-aar/de.keyboardsurfer.android.widget/crouton/1.8.5/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b81c788c5f175f94ddaac2f65e5d1726371e0963">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/classes-b92e230e56a27f160fb55bdb7a2c4a3fe798143f.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-api-client-gson-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ac68a2a4383806a9f2ceb7f99764b5fd97ce6882">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-api-client-gson-1.18.0-rc-31e6942c107011ddd2f5ca71e67bda30e2097423.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-api-client-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="45b0d00b78197d8a3047751443c09538117d188b">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-api-client-1.18.0-rc-cb50f3ca83bff42fb4781b3bdfca8ed83c0b3fba.jar" />
+    </item>
+    <item
+        jar="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/libs/google-http-client-jdo-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4a9d9b322b05031d9cc3eb8109ddb559d27ea4ce">
+        <dex dex="/Users/luanvu/AndroidStudioProjects/mobilett/mobilett/build/intermediates/pre-dexed/debug/google-http-client-jdo-1.18.0-rc-5c452dd3bf5cabb2d1e21936af48bdef07825cdf.jar" />
+    </item>
+
+</items>

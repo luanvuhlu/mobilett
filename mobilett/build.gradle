@@ -1,0 +1,79 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "com.bigbear.mobilett"
+        minSdkVersion 11
+        targetSdkVersion 21
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_7
+            targetCompatibility JavaVersion.VERSION_1_7
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+//    maven { url 'http://clinker.47deg.com/nexus/content/groups/public' }
+}
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.3'
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.android.support:support-v4:21.0.3'
+    compile 'com.github.navasmdc:MaterialDesign:1.+@aar'
+    compile 'com.felipecsl.asymmetricgridview:library:1.1.0'
+    compile('de.keyboardsurfer.android.widget:crouton:1.8.5@aar') {
+        exclude group: 'com.google.android', module: 'support-v4'
+    }
+//    compile ('com.fortysevendeg.swipelistview:swipelistview:1.0-SNAPSHOT@aar') {
+//        transitive = true
+//    }
+//    compile 'com.android.support:recyclerview-v7:21.0.0'
+//    compile "com.daimajia.swipelayout:library:1.1.8@aar"
+    //    compile files('libs/commons-logging-1.1.1.jar')
+    compile files('libs/google-api-client-1.18.0-rc.jar')
+    compile files('libs/google-api-client-android-1.18.0-rc.jar')
+    compile files('libs/google-api-client-appengine-1.18.0-rc.jar')
+    compile files('libs/google-api-client-gson-1.18.0-rc.jar')
+    compile files('libs/google-api-client-jackson2-1.18.0-rc.jar')
+    compile files('libs/google-api-client-java6-1.18.0-rc.jar')
+    compile files('libs/google-api-client-protobuf-1.18.0-rc.jar')
+    compile files('libs/google-api-client-servlet-1.18.0-rc.jar')
+    compile files('libs/google-api-client-xml-1.18.0-rc.jar')
+    compile files('libs/google-http-client-1.18.0-rc.jar')
+    compile files('libs/google-http-client-android-1.18.0-rc.jar')
+    compile files('libs/google-http-client-appengine-1.18.0-rc.jar')
+    compile files('libs/google-http-client-jackson-1.18.0-rc.jar')
+    compile files('libs/google-http-client-jackson2-1.18.0-rc.jar')
+    compile files('libs/google-http-client-jdo-1.18.0-rc.jar')
+    compile files('libs/google-http-client-protobuf-1.18.0-rc.jar')
+    compile files('libs/google-http-client-xml-1.18.0-rc.jar')
+    compile files('libs/google-oauth-client-1.18.0-rc.jar')
+    compile files('libs/google-oauth-client-appengine-1.18.0-rc.jar')
+    compile files('libs/google-oauth-client-java6-1.18.0-rc.jar')
+    compile files('libs/google-oauth-client-jetty-1.18.0-rc.jar')
+    compile files('libs/google-oauth-client-servlet-1.18.0-rc.jar')
+    compile files('libs/httpclient-4.0.1.jar')
+    compile files('libs/httpcore-4.0.1.jar')
+    compile files('libs/jsr305-1.3.9.jar')
+    compile files('libs/timetable-v1-1.19.0-SNAPSHOT.jar')
+//    compile files('libs/zbar.jar')
+    compile 'com.nineoldandroids:library:2.4.0'
+}
