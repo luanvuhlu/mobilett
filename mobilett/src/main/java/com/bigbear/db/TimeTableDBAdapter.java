@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.bigbear.dao.DBHelper;
+
 public class TimeTableDBAdapter {
 	private static final String DATABASE_NAME = "timetable.db";
 	private static final int DATABASE_VERSION = 1;
@@ -97,35 +99,5 @@ public class TimeTableDBAdapter {
 		return db.update(_myObject.getTableName(), contentValues, where, null);
 		}
 	
-	private static class DBHelper extends SQLiteOpenHelper{
-		
-		public DBHelper(Context context, String name, CursorFactory factory,
-				int version) {
-			super(context, name, factory, version);
-		}
-		@Override
-		public void onCreate(SQLiteDatabase db) {
-			try{
-				db.execSQL(TimeTableEtt.CREATE_TABLE_SQL);
-				db.execSQL(StudentEtt.CREATE_TABLE_SQL);
-				db.execSQL(SubjectEtt.CREATE_TABLE_SQL);
-				db.execSQL(SubjectClassEtt.CREAT_TABLE_SQL);
-				db.execSQL(SubjectStudyClassEtt.CREATE_TABLE_SQL);
-			}catch(SQLException e){
-				Log.e(LOG_TAG, "Create table error: "+e.getMessage(), e);
-				throw e;
-			}
-		}
-		@Override
-		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			Log.w("TaskDBAdapter", "Upgrading from version " +
-					oldVersion + " to " +
-					newVersion +
-					", which will destroy all old data");
-			for(String str:DATABASE_TABLES){
-				db.execSQL(" DROP TABLE IF EXISTS " + str+"; ");
-			}
-			onCreate(db);
-		}
-	}
+
 }
