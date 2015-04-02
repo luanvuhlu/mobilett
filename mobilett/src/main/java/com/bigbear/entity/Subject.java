@@ -1,13 +1,15 @@
 package com.bigbear.entity;
 
 public class Subject {
+    private long id;
     private int courseCredit;
     private String speciality;
     private String subjectCode;
     private String subjectName;
     private String subjectShortName;
 
-    public Subject(int courseCredit, String speciality, String subjectCode, String subjectName, String subjectShortName) {
+    public Subject(long id, int courseCredit, String speciality, String subjectCode, String subjectName, String subjectShortName) {
+        this.id=id;
         this.courseCredit = courseCredit;
         this.speciality = speciality;
         this.subjectCode = subjectCode;
@@ -16,6 +18,14 @@ public class Subject {
     }
 
     public Subject() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getCourseCredit() {
