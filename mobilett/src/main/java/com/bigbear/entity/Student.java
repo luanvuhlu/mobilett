@@ -13,6 +13,10 @@ public class Student {
     public Student() {
     }
 
+    public Student(long id) {
+        this.id = id;
+    }
+
     public Student(long id, String code, String name, String studentClass, Set<TimeTable> timeTables) {
         this.id=id;
         this.code = code;

@@ -14,25 +14,40 @@ import java.util.List;
 import java.util.Set;
 
 
-public class SubjectClass{
-	  private Date endDate;
-	  private String seminarClass;
-	  private Date startDate;
-	  private Subject subject;
-	  private Set<SubjectStudyClass> subjectStudyDay;
-	  private String theoryClass;
+public class SubjectClass {
+    private Date endDate;
+    private String seminarClass;
+    private Date startDate;
+    private Subject subject;
+    private Set<SubjectStudyClass> subjectStudyDay;
+    private String theoryClass;
+    private long id;
 
 
-    public SubjectClass(Date endDate, String seminarClass, Date startDate, Subject subject, Set<SubjectStudyClass> subjectStudyDay, String theoryClass) {
+    public SubjectClass(Date endDate, String seminarClass, Date startDate, Subject subject, Set<SubjectStudyClass> subjectStudyDay, String theoryClass, long id) {
         this.endDate = endDate;
         this.seminarClass = seminarClass;
         this.startDate = startDate;
         this.subject = subject;
         this.subjectStudyDay = subjectStudyDay;
         this.theoryClass = theoryClass;
+        this.id = id;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+
     public SubjectClass() {
+    }
+
+    public SubjectClass(long id) {
+        this.id = id;
     }
 
     public Date getEndDate() {

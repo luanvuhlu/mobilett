@@ -27,7 +27,6 @@ public class SubjectClassEtt extends AbstractEntity {
 	public static final String CREAT_TABLE_SQL = "CREATE TABLE SUBJECT_CLASS ( ID"
 		+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
 		+ " SUBJECT_ID INTEGER NOT NULL, "
-		+ " TIMETABLE_ID INTEGER NOT NULL, "
 		+ " THEORY_CLASS TEXT NOT NULL, "
 		+ " SEMINAR_CLASS TEXT, "
 		+ " START_DATE DATE, "

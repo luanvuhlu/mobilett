@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import com.appspot.hlutimetable.timetable.model.TimeTableStudentResponse;
 import com.bigbear.common.Validate;
 import com.bigbear.entity.Student;
 
@@ -13,6 +14,9 @@ import com.bigbear.entity.Student;
  */
 public class StudentDao extends AbstractDao<Student> implements StudentDaoInterface<Student> {
     private static final String LOG_TAG = "StudentDao";
+
+    public StudentDao() {
+    }
 
     public StudentDao(Context context) {
         super(context);
@@ -55,30 +59,24 @@ public class StudentDao extends AbstractDao<Student> implements StudentDaoInterf
     @Override
     public long save(Student student) {
         try {
-            open();
             ContentValues contentValues = toValue(student);
-            return getDb().insert(getTableName(), null, contentValues);
+            long id=getDb().insert(getTableName(), null, contentValues);
+            student.setId(id);
+            return id;
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             throw e;
-        } finally {
-            close();
         }
-
     }
 
     @Override
     public long delete(long id) {
         try {
-            open();
             return getDb().delete(getTableName(), getKeyIDName() + "=" + id, null);
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             throw e;
-        } finally {
-            close();
         }
-
     }
 
     @Override
@@ -102,5 +100,12 @@ public class StudentDao extends AbstractDao<Student> implements StudentDaoInterf
             Log.e(LOG_TAG, e.getMessage(), e);
             throw e;
         }
+    }
+    public Student getEntityFromResponse(TimeTableStudentResponse response){
+        Student student=new Student();
+        student.setCode(response.getCode());
+        student.setName(response.getName());
+        student.setStudentClass(response.getStudentClass());
+        return student;
     }
 }

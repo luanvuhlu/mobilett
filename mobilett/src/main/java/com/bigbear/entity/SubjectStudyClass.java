@@ -8,17 +8,28 @@ public class SubjectStudyClass {
     private String dayLocations;
     private SubjectClass subjectClass;
     private TimeTable timeTable;
+    private long id;
 
-    public SubjectStudyClass(String classType) {
+    public SubjectStudyClass() {
     }
 
-    public SubjectStudyClass(String classType, String dayName, String dayHours, String dayLocations, SubjectClass subjectClass, TimeTable timeTable) {
+
+    public SubjectStudyClass(String classType, String dayName, String dayHours, String dayLocations, SubjectClass subjectClass, TimeTable timeTable, long id) {
         this.classType = classType;
         this.dayName = dayName;
         this.dayHours = dayHours;
         this.dayLocations = dayLocations;
         this.subjectClass = subjectClass;
         this.timeTable = timeTable;
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getClassType() {

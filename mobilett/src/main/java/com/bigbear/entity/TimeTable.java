@@ -22,16 +22,30 @@ public class TimeTable {
     private Set<SubjectStudyClass> subjectStudyClass;
     private String year;
     private Date createdDate;
+    private long id;
 
     public TimeTable() {
     }
 
-    public TimeTable(String semester, Student student, Set<SubjectStudyClass> subjectStudyClass, String year, Date createdDate) {
+    public TimeTable(long id) {
+        this.id = id;
+    }
+
+    public TimeTable(String semester, Student student, Set<SubjectStudyClass> subjectStudyClass, String year, Date createdDate, long id) {
         this.semester = semester;
         this.student = student;
         this.subjectStudyClass = subjectStudyClass;
         this.year = year;
         this.createdDate = createdDate;
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getSemester() {

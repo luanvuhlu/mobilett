@@ -17,6 +17,10 @@ public abstract class AbstractDao<T> {
     private DBHelper helper;
     private Context context;
     private SQLiteDatabase db;
+
+    protected AbstractDao() {
+    }
+
     public AbstractDao(Context context) {
         this.context=context;
         helper=new DBHelper(context, DATABASE_NAME, null, DATABASE_VERSION);

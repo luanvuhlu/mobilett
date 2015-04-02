@@ -6,32 +6,28 @@ import android.database.Cursor;
 import android.util.Log;
 
 import com.appspot.hlutimetable.timetable.model.TimeTableSubjectClassResponse;
-import com.appspot.hlutimetable.timetable.model.TimeTableSubjectResponse;
 import com.appspot.hlutimetable.timetable.model.TimeTableSubjectStudyDayResponse;
 import com.bigbear.common.TimeCommon;
 import com.bigbear.common.Validate;
-import com.bigbear.db.SubjectStudyClassEtt;
-import com.bigbear.entity.Student;
 import com.bigbear.entity.Subject;
 import com.bigbear.entity.SubjectClass;
-
-import java.util.ArrayList;
+import com.bigbear.entity.SubjectStudyClass;
 
 /**
  * Created by luanvu on 4/1/15.
  */
-public class SubjectDao extends AbstractDao<Subject> implements SubjectDaoInterface<Subject> {
+public class SubjectStudyClassDao extends AbstractDao<SubjectStudyClass> implements SubjectStudyClassDaoInterface<SubjectStudyClass> {
     private static final String LOG_TAG = "StudentDao";
 
-    public SubjectDao(Context context) {
+    public SubjectStudyClassDao(Context context) {
         super(context);
     }
-    public SubjectDao() {
+    public SubjectStudyClassDao() {
     }
 
     @Override
     public String getTableName() {
-        return "SUBJECT";
+        return "SUBJECT_STUDY_CLASS";
     }
 
     @Override
@@ -41,12 +37,12 @@ public class SubjectDao extends AbstractDao<Subject> implements SubjectDaoInterf
 
     @Override
     public String[] getColumnNames() {
-        return new String[]{"ID","SUBJECT_CODE", "SUBJECT_NAME", "COURSE_CREDIT", "SPECIALITY",   "SUBJECT_SHORT_NAME"};
+        return new String[]{"ID", "SUBJECT_CLASS_ID", "CLASS_TYPE", "DAY_NAME", "DAY_HOURS", "DAY_LOCATION"};
     }
 
     @Override
-    public Subject getEntryById(long id) throws Exception {
-        Subject s = new Subject();
+    public SubjectStudyClass getEntryById(long id) throws Exception {
+        SubjectStudyClass s = new SubjectStudyClass();
         Cursor rs = getDb().query(getTableName(), getColumnNames(), getKeyIDName() + "=" + id,
                 null, null, null, null);
 
@@ -64,10 +60,12 @@ public class SubjectDao extends AbstractDao<Subject> implements SubjectDaoInterf
     }
 
     @Override
-    public long save(Subject entity) {
+    public long save(SubjectStudyClass entity) {
         try {
             ContentValues contentValues = toValue(entity);
-            return getDb().insert(getTableName(), null, contentValues);
+            long id= getDb().insert(getTableName(), null, contentValues);
+            entity.setId(id);
+            return id;
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             throw e;
@@ -78,46 +76,48 @@ public class SubjectDao extends AbstractDao<Subject> implements SubjectDaoInterf
     @Override
     public long delete(long id) {
         try {
+            open();
             return getDb().delete(getTableName(), getKeyIDName() + "=" + id, null);
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             throw e;
+        } finally {
+            close();
         }
 
     }
 
     @Override
-    public ContentValues toValue(Subject entity) {
+    public ContentValues toValue(SubjectStudyClass entity) {
         ContentValues value=new ContentValues();
         if(entity.getId()!=0) value.put("ID", entity.getId());
-        value.put("SUBJECT_CODE", entity.getSubjectCode());
-        value.put("SUBJECT_NAME", entity.getSubjectName());
-        value.put("COURSE_CREDIT", entity.getCourseCredit());
-        value.put("SPECIALITY", entity.getSpeciality());
-        value.put("SUBJECT_SHORT_NAME", entity.getSubjectShortName());
+        value.put("SUBJECT_CLASS_ID", entity.getSubjectClass().getId());
+        value.put("CLASS_TYPE", entity.getClassType());
+        value.put("DAY_NAME", entity.getDayName());
+        value.put("DAY_HOURS", entity.getDayHours());
+        value.put("DAY_LOCATION", entity.getDayLocations());
         return value;
     }
 
     @Override
-    public void setValue(Cursor rs, Subject entity) {
+    public void setValue(Cursor rs, SubjectStudyClass entity) {
         try{
             entity.setId(rs.getLong(0));
-            entity.setSubjectCode(Validate.repNullCursor(1, rs));
-            entity.setSubjectName(Validate.repNullCursor(2, rs));
-            entity.setCourseCredit(Validate.repNullIntCursor(3, rs));
-            entity.setSpeciality(Validate.repNullCursor(4, rs));
-            entity.setSubjectShortName(Validate.repNullCursor(5, rs));
+            entity.setSubjectClass(new SubjectClass(rs.getLong(1)));
+            entity.setClassType(rs.getString(2));
+            entity.setDayName(rs.getString(3));
+            entity.setDayHours(rs.getString(4));
+            entity.setDayLocations(rs.getString(5));
         }catch(Exception e){
             Log.e(LOG_TAG, "Seting value has some errors: "+e.getMessage(), e);
         }
     }
-    public Subject getEntityFromResponse(TimeTableSubjectResponse res){
-        Subject entity=new Subject();
-        entity.setCourseCredit(res.getCourseCredit()==null?0:res.getCourseCredit().intValue());
-        entity.setSpeciality(res.getSpeciality());
-        entity.setSubjectCode(res.getSubjectCode());
-        entity.setSubjectName(res.getSubjectName());
-        entity.setSubjectShortName(res.getSubjectShortName());
+    public SubjectStudyClass getEntityFromResponse(TimeTableSubjectStudyDayResponse res){
+        SubjectStudyClass entity=new SubjectStudyClass();
+        entity.setClassType(res.getClassType());
+        entity.setDayHours(res.getDayHours());
+        entity.setDayLocations(res.getDayLocation());
+        entity.setDayName(res.getDayName());
         return entity;
     }
 }
