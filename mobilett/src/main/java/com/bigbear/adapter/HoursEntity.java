@@ -2,11 +2,32 @@ package com.bigbear.adapter;
 
 import com.bigbear.db.SubjectEtt;
 
+/**
+ * Entity cho mỗi ô
+ * @author luanvu
+ */
 public class HoursEntity {
+    /**
+     * Giờ học
+     */
+
 	private String hours;
+    /**
+     * Tên môn học
+     */
 	private String subjectName;
+    /**
+     * Phòng học
+     */
 	private String location;
+    /**
+     * ID của {@link com.bigbear.entity.SubjectStudyClass}
+     */
 	private String dayId;
+    /**
+     * Loại lớp "S" là {@link #SEMINAR_TYPE} Thảo luận
+     * Loại lớp "T" là {@link #THEORY_TYPE} Lý thuyết
+     */
     private String classType;
     public static final String SEMINAR_TYPE="S";
     public static final String THEORY_TYPE="T";

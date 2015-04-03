@@ -1,11 +1,20 @@
 package com.bigbear.entity;
 
+/**
+ * Môn học
+ */
 public class Subject {
     private long id;
+    /**
+     * Số tín chỉ của môn học.
+     */
     private int courseCredit;
     private String speciality;
     private String subjectCode;
     private String subjectName;
+    /**
+     * Tên ngắn của môn học
+     */
     private String subjectShortName;
 
     public Subject(long id, int courseCredit, String speciality, String subjectCode, String subjectName, String subjectShortName) {
@@ -30,6 +39,10 @@ public class Subject {
         this.id = id;
     }
 
+    /**
+     *
+     * @return Số tín chỉ của môn học
+     */
     public int getCourseCredit() {
         return courseCredit;
     }
@@ -62,6 +75,10 @@ public class Subject {
         this.subjectName = subjectName;
     }
 
+    /**
+     *
+     * @return Tên ngắn của môn học
+     */
     public String getSubjectShortName() {
         return subjectShortName;
     }

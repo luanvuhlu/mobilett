@@ -39,6 +39,10 @@ import com.thehayro.view.InfiniteViewPager;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
+/**
+ * Giao diện chính hiển thị thông tin thời khóa biểu
+ * @author luanvu
+ */
 public class TimeTableFragment extends Fragment  implements OnItemClickListener  {
 	private static final String LOG_TAG="TIME_TABLE_FRAGMENT";
     private static final String SUBJECT_CLASS_DAY_TAG = "SUBJECT_CLASS_DAY_TAG";
@@ -55,7 +59,7 @@ public class TimeTableFragment extends Fragment  implements OnItemClickListener 
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.timetable_detail_fragment, container, false);
 		final InfiniteViewPager viewPager = (InfiniteViewPager) rootView.findViewById(R.id.infinite_viewpager);
-        dayAdapter=new DayAdapter(new Date());
+        dayAdapter=new DayAdapter(TimeCommon.addDate(new Date(), -3)); // Lùi lại 3 ngày
         viewPager.setAdapter(dayAdapter);
         viewPager.setPageMargin(3);
         viewPager.setOnInfinitePageChangeListener(new InfiniteViewPager.OnInfinitePageChangeListener() {
@@ -128,6 +132,7 @@ public class TimeTableFragment extends Fragment  implements OnItemClickListener 
             goListPage();
 		}
 	}
+
     private void goListPage(){
         ((MainActivity)getActivity()).onNavigationDrawerItemSelected(MainActivity.NAVIGATION_DRAWER_TIMETABLE_LIST);
     }

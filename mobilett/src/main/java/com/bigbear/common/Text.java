@@ -33,6 +33,12 @@ public class Text {
 		return temp;
 	}
 
+    /**
+     * Đọc tiền
+     * @param num Số tiền số
+     * @return Số tiền bằng chữ
+     * @throws Exception
+     */
 	public static String readMoney(String num) throws Exception {
 		if ((num == null) || (num.equals("")))
 			return "";
@@ -112,9 +118,21 @@ public class Text {
 	public static String toLowerCase(String str) {
 		return str.toLowerCase(TimeCommon.locale);
 	}
+
+    /**
+     *
+     * @param str
+     * @return Nếu str là null thì trả về rỗng, nếu không thì trả về chính nó
+     */
 	public static String retSpace(String str){
 		return str==null?"":str;
 	}
+
+    /**
+     * Kiểm tra xem str có bị null hoặc rỗng hay không
+     * @param txt
+     * @return boolean
+     */
     public static boolean isEmpty(String txt){
         return txt==null||txt.equals("");
     }

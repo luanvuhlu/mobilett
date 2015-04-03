@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+/**
+ * Nên bỏ đi
+ */
 @SuppressLint("ViewHolder")
 public class TimeTableAdapter extends ArrayAdapter<TimeTableEtt>{
 	private final Context context;

@@ -15,8 +15,10 @@ import com.felipecsl.asymmetricgridview.library.widget.AsymmetricGridViewAdapter
 
 import java.util.List;
 
-// Sample adapter implementation extending from AsymmetricGridViewAdapter<TimeTableDayitem>.
-// This is the easiest way to get started.
+/**
+ * Tương ứng cho mỗi ô trên grid Thời khóa biểu
+ * @author luanvu
+ */
 public class DefaultListHoursAdapter extends AsymmetricGridViewAdapter<TimeTableDayitem> {
 
     public DefaultListHoursAdapter(final Context context, final AsymmetricGridView listView, final List<TimeTableDayitem> items) {
@@ -52,6 +54,11 @@ public class DefaultListHoursAdapter extends AsymmetricGridViewAdapter<TimeTable
         return v;
     }
 
+    /**
+     * Cho phép ô đó có khả năng được click hay không.
+     * @param position
+     * @return Nếu ô đó không phải ô {@link com.bigbear.adapter.TimeTableDayitem} SUB_NAME hoặc rỗng thì trả về false
+     */
     @Override
     public boolean isEnabled(int position) {
         TimeTableDayitem item = getItem(position);

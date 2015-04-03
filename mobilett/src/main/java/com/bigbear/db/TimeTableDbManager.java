@@ -106,7 +106,14 @@ public class TimeTableDbManager {
         }
         return ett;
     }
-    // Chua chih xac
+
+    /**
+     * Lấy về
+     * @param dayId
+     * @param context
+     * @return id TimeTable entity
+     * @throws Exception
+     */
     public static SubjectClassEtt getSubjectClassFromDayId(long dayId, Context context) throws Exception{
         TimeTableDBAdapter adapter=null;
         SubjectStudyClassEtt subjectStudyClassEtt=null;
@@ -119,8 +126,6 @@ public class TimeTableDbManager {
             subjectClassEtt=SubjectClassEtt.getInstance(subjectStudyClassEtt.getSubjectClassId());
             subjectClassEtt=(SubjectClassEtt) adapter.getEntryById(subjectClassEtt);
             subjectClassEtt=(SubjectClassEtt) subjectClassEtt.setDetail(adapter);
-        }catch(NullPointerException e){
-            throw new NullPointerException("Cannot find day "+dayId);
         }catch(Exception e){
             throw e;
         }finally{

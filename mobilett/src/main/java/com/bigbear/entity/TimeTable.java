@@ -16,11 +16,30 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Thời khóa biểu
+ */
 public class TimeTable {
+    /**
+     * Kỳ học
+     */
     private String semester;
+    /**
+     * Sinh viên
+     * {@link com.bigbear.entity.Student}
+     */
     private Student student;
+    /**
+     * Set các giờ học
+     */
     private Set<SubjectStudyClass> subjectStudyClass;
+    /**
+     * Năm học
+     */
     private String year;
+    /**
+     * Ngày import thời khóa biểu
+     */
     private Date createdDate;
     private long id;
 

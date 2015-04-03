@@ -13,13 +13,35 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-
+/**
+ * Lớp học. Ví dụ: lớp Luật Lao động N02.TL3
+ */
 public class SubjectClass {
+    /**
+     * Ngày hết học
+     */
     private Date endDate;
+    /**
+     * Lớp thảo luận
+     */
     private String seminarClass;
+    /**
+     * Ngày bắt đầu học
+     */
     private Date startDate;
+    /**
+     * Môn học
+     * {@link com.bigbear.entity.Subject}
+     */
     private Subject subject;
+    /**
+     * Set các giờ học
+     * {@link com.bigbear.entity.SubjectStudyClass }
+     */
     private Set<SubjectStudyClass> subjectStudyDay;
+    /**
+     * Lớp lý thuyết
+     */
     private String theoryClass;
     private long id;
 

@@ -10,6 +10,10 @@ import com.bigbear.common.Text;
 import com.bigbear.common.TimeCommon;
 import com.bigbear.db.TimeTableEtt;
 
+/**
+ * Danh sách các ô chứa trên grid
+ * @author luanvu
+ */
 public class ListTimeTableDay {
 	private static final String LOG_TAG = "LIST_TIMETABLE_DAY";
 	public static List<TimeTableDayitem> getListTimeTableDayitem(TimeTableEtt ett, Date d){

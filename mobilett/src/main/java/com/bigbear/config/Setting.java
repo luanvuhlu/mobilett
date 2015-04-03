@@ -2,11 +2,23 @@ package com.bigbear.config;
 
 
 public final class Setting {
+    /**
+     * Có ẩn đi ngày nào. Mặc định là hiện tất cả.
+     */
 	private static boolean[] hiddenDay={false, false, false, false, false, false};
+    /**
+     * Có ẩn đi khoảng giữa buổi trưa không. Mặc định là không.
+     */
 	private static boolean hiddenMidi;
+    /**
+     * Có bỏ buổi tối không. Mặc định là không.
+     */
 	private static boolean hiddenNight;
+    /**
+     * Có cho hiện tất cả các lớp hay không. Mặc định là có
+     */
 	private static boolean viewAllSubject;
-	private static String viewSubjectCode;
+
 	private Setting() {
 		
 	}
@@ -19,9 +31,7 @@ public final class Setting {
 	public static boolean[] getHiddenDay() {
 		return Setting.hiddenDay;
 	}
-	public static String getViewSubjectCode() {
-		return Setting.viewSubjectCode;
-	}
+
 	public static boolean isHiddenMidi() {
 		return Setting.hiddenMidi;
 	}
@@ -44,8 +54,6 @@ public final class Setting {
 	public void setViewAllSubject(boolean viewAllSubject) {
 		Setting.viewAllSubject = viewAllSubject;
 	}
-	public static void setViewSubjectCode(String viewSubjectCode) {
-		Setting.viewSubjectCode = viewSubjectCode;
-	}
+
 	
 }

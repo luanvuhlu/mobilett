@@ -3,6 +3,10 @@ package com.bigbear.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Chứa danh sách các giờ trong một ngày. Có tổng cộng 6 giờ từ 1-2 cho đến 11-12
+ * @author luanvu
+ */
 public class ListHours {
 	private List<HoursEntity> list=new ArrayList<HoursEntity>();
 	private static HoursEntity defaultHours=new HoursEntity();

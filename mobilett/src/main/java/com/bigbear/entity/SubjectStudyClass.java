@@ -1,12 +1,29 @@
 package com.bigbear.entity;
 
-
+/**
+ * Giờ học
+ */
 public class SubjectStudyClass {
+    /**
+     * Loại giờ học. S hoặc T
+     */
     private String classType;
     private String dayName;
+    /**
+     * Giờ học. Ví dụ: 11-12
+     */
     private String dayHours;
+    /**
+     * Phòng học
+     */
     private String dayLocations;
+    /**
+     * Lớp học của môn {@link com.bigbear.entity.SubjectClass}
+     */
     private SubjectClass subjectClass;
+    /**
+     * Thời khóa biểu {@link com.bigbear.entity.TimeTable}
+     */
     private TimeTable timeTable;
     private long id;
 

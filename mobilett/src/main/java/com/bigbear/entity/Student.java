@@ -4,9 +4,13 @@ package com.bigbear.entity;
 import java.util.Set;
 
 public class Student {
+
     private long id;
     private String code;
     private String name;
+    /**
+     * Lớp của sinh viên
+     */
     private String studentClass;
     public Set<TimeTable> timeTables;
 
@@ -57,12 +61,23 @@ public class Student {
         this.studentClass = studentClass;
     }
 
+    /**
+     *
+     * @return Set thời khóa biểu của sinh viên
+     */
     public Set<TimeTable> getTimeTables() {
         return timeTables;
     }
 
     public void setTimeTables(Set<TimeTable> timeTables) {
         this.timeTables = timeTables;
+    }
+    public void addTimeTable(TimeTable timetable){
+        try {
+            getTimeTables().add(timetable);
+        }catch (NullPointerException e){
+            throw  e;
+        }
     }
 }
 

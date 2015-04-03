@@ -7,7 +7,6 @@ import com.bigbear.dao.StudentDao;
 import com.bigbear.dao.SubjectClassDao;
 import com.bigbear.dao.SubjectStudyClassDao;
 import com.bigbear.dao.TimeTableDao;
-import com.bigbear.entity.Student;
 import com.bigbear.entity.SubjectStudyClass;
 import com.bigbear.entity.TimeTable;
 
@@ -18,10 +17,22 @@ public class TimeTableService extends AbstractService {
     public TimeTableService(Context context) {
         super(context);
     }
+
+    /**
+     * Lưu timetable
+     * @param entity
+     * @return id của entity hoặc -1 nếu thất
+     */
     public long save(TimeTable entity){
         TimeTableDao dao=new TimeTableDao(getContext());
         return dao.save(entity);
     }
+
+    /**
+     * Lấy dữ liệu timetable từ response và lưu vào database
+     * @param timeTableResponse
+     * @return id timetable enity vừa được lưu. -1 nếu lưu thất bại.
+     */
     public long save(TimeTableTimeTableResponse timeTableResponse){
         TimeTableDao dao =null;
         try {
@@ -39,6 +50,7 @@ public class TimeTableService extends AbstractService {
             return dao.save(entity);
         }catch (Exception e){
             e.printStackTrace();
+            throw  e;
         }finally {
             if(dao!=null)dao.close();
         }

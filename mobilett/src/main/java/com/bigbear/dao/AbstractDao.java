@@ -33,9 +33,18 @@ public abstract class AbstractDao<T> {
     public Context getContext() {
         return context;
     }
+
+    /**
+     * Open database
+     * @throws SQLException
+     */
     public void open() throws SQLException {
         db=helper.getWritableDatabase();
     }
+
+    /**
+     * Close database
+     */
     public void close(){
         if(db!=null)
             db.close();
@@ -45,9 +54,20 @@ public abstract class AbstractDao<T> {
         return db;
     }
 
+    /**
+     * Chuyển entity sang dạng {@link android.content.ContentValues} để thao tác với database
+     * @param entity
+     * @return Trả về {@link android.content.ContentValues}
+     */
     public abstract ContentValues toValue(T entity);
     public abstract String getTableName();
     public abstract String getKeyIDName();
     public abstract String[] getColumnNames();
+
+    /**
+     * Fill dữ liệu vào entity từ {@link android.database.Cursor} lấy từ database
+     * @param rs con trỏ từ database
+     * @param entity cũ sau khi được set giá trị
+     */
     public abstract void setValue(Cursor rs, T entity);
 }

@@ -5,17 +5,44 @@ import android.os.Parcelable;
 
 import com.felipecsl.asymmetricgridview.library.model.AsymmetricItem;
 
+/**
+ * Entity cho mỗi ô trên grid
+ */
 public class TimeTableDayitem implements AsymmetricItem {
 	public static final int HOURS=0;
 	public static final int SUB_NAME=1;
 	public static final int LOCAL=2;
+    /**
+     * Columns span
+     */
 	private int columnSpan;
+    /**
+     * Rows span
+     */
     private int rowSpan;
+    /**
+     * Vị trí
+     */
     private int position;
+    /**
+     * Nội dung text bên trong
+     */
     private String text;
+    /**
+     * Loại ô {@link #HOURS} cho giờ học {@link #SUB_NAME} cho môn học và {@link #LOCAL} cho phòng học
+     */
     private int type;
+    /**
+     * ID của {@link com.bigbear.entity.SubjectStudyClass}. Chỉ ô loại {@link #SUB_NAME} mới có
+     */
     private String dayId;
+    /**
+     * Giờ này có được học không
+     */
     private boolean isStudy;
+    /**
+     * Giờ này có phải serminar không.
+     */
     private boolean isSeminar;
     
 

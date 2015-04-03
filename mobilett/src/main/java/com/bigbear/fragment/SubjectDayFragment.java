@@ -17,6 +17,10 @@ import com.bigbear.db.TimeTableDBAdapter;
 import com.bigbear.mobilett.MainActivity;
 import com.bigbear.mobilett.R;
 
+/**
+ * Hiển thị thông tin chi tiết về ngày học và môn học
+ * @author luanvu
+ */
 public class SubjectDayFragment extends Fragment   {
 	private static final String LOG_TAG="SUBJECT_DAY_FRAGMENT";
 	private Date currentDateSelected;
