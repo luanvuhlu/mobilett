@@ -5,13 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
-import com.appspot.hlutimetable.timetable.model.TimeTableSubjectClassResponse;
 import com.appspot.hlutimetable.timetable.model.TimeTableSubjectStudyDayResponse;
-import com.bigbear.common.TimeCommon;
-import com.bigbear.common.Validate;
-import com.bigbear.entity.Subject;
 import com.bigbear.entity.SubjectClass;
 import com.bigbear.entity.SubjectStudyClass;
+import com.bigbear.entity.TimeTable;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by luanvu on 4/1/15.
@@ -37,7 +39,7 @@ public class SubjectStudyClassDao extends AbstractDao<SubjectStudyClass> impleme
 
     @Override
     public String[] getColumnNames() {
-        return new String[]{"ID", "SUBJECT_CLASS_ID", "CLASS_TYPE", "DAY_NAME", "DAY_HOURS", "DAY_LOCATION"};
+        return new String[]{"ID", "TIMETABLE_ID", "SUBJECT_CLASS_ID", "CLASS_TYPE", "DAY_NAME", "DAY_HOURS", "DAY_LOCATION"};
     }
 
     @Override
@@ -88,9 +90,31 @@ public class SubjectStudyClassDao extends AbstractDao<SubjectStudyClass> impleme
     }
 
     @Override
+    public Set<SubjectStudyClass> getFromTimeTable(TimeTable timeTable) {
+        Set<SubjectStudyClass> etts=new HashSet<>();
+        Cursor cs=getDb().query(getTableName(), getColumnNames(), "TIMETABLE_ID = ?", new String[]{timeTable.getId() + ""}, null, null, null);
+        if(cs ==null){
+            Log.d(LOG_TAG, "No row !");
+            return etts;
+        }
+        if(cs.moveToFirst()){
+            do{
+                SubjectStudyClass ett=new SubjectStudyClass();
+                setValue(cs, ett);
+                ett.setTimeTable(timeTable);
+                etts.add(ett);
+            }while(cs.moveToNext());
+        }else{
+            Log.d(LOG_TAG, "Cursor empty !");
+        }
+        return etts;
+    }
+
+    @Override
     public ContentValues toValue(SubjectStudyClass entity) {
         ContentValues value=new ContentValues();
         if(entity.getId()!=0) value.put("ID", entity.getId());
+        value.put("TIMETABLE_ID", entity.getTimeTable().getId());
         value.put("SUBJECT_CLASS_ID", entity.getSubjectClass().getId());
         value.put("CLASS_TYPE", entity.getClassType());
         value.put("DAY_NAME", entity.getDayName());
@@ -102,12 +126,14 @@ public class SubjectStudyClassDao extends AbstractDao<SubjectStudyClass> impleme
     @Override
     public void setValue(Cursor rs, SubjectStudyClass entity) {
         try{
+            SubjectClassDao subjectClassDao=new SubjectClassDao(getContext());
             entity.setId(rs.getLong(0));
-            entity.setSubjectClass(new SubjectClass(rs.getLong(1)));
-            entity.setClassType(rs.getString(2));
-            entity.setDayName(rs.getString(3));
-            entity.setDayHours(rs.getString(4));
-            entity.setDayLocations(rs.getString(5));
+            entity.setTimeTable(new TimeTable(rs.getLong(1)));
+            entity.setSubjectClass(subjectClassDao.findById(rs.getLong(2)));
+            entity.setClassType(rs.getString(3));
+            entity.setDayName(rs.getString(4));
+            entity.setDayHours(rs.getString(5));
+            entity.setDayLocations(rs.getString(6));
         }catch(Exception e){
             Log.e(LOG_TAG, "Seting value has some errors: "+e.getMessage(), e);
         }

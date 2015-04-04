@@ -1,15 +1,8 @@
 package com.bigbear.mobilett;
 
-import java.util.ArrayList;
-import java.util.Date;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,37 +14,37 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
-import android.widget.TextView;
-import android.widget.WrapperListAdapter;
 
 import com.bigbear.adapter.DefaultListHoursAdapter;
 import com.bigbear.adapter.ListTimeTableDay;
 import com.bigbear.adapter.TimeTableDayitem;
 import com.bigbear.common.TimeCommon;
-import com.bigbear.db.TimeTableDbManager;
-import com.bigbear.db.TimeTableEtt;
-import com.bigbear.mobilett.MainActivity;
-import com.bigbear.mobilett.R;
-import com.bigbear.mobilett.MainActivity.PlaceholderFragment;
+import com.bigbear.entity.TimeTable;
+import com.bigbear.service.TimeTableService;
 import com.felipecsl.asymmetricgridview.library.widget.AsymmetricGridView;
 import com.felipecsl.asymmetricgridview.library.widget.AsymmetricGridViewAdapter;
 import com.thehayro.view.InfinitePagerAdapter;
 import com.thehayro.view.InfiniteViewPager;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 
 public class TimeTableViewActivity extends ActionBarActivity implements OnItemClickListener {
     private CharSequence mTitle;
     private static final String LOG_TAG="TIME_TABLE_FRAGMENT";
     public static final String TIMETABLE_ID_TAG = "TIMETABLE_ID_TAG";
-    private static TimeTableEtt ett;
+    private static TimeTable ett;
     private DayAdapter dayAdapter;
     public static final String SUBJECT_CLASS_STUDY_ID = "SUBJECT_CLASS_STUDY_ID";
     public static final String SELECTED_DATE = "SELECTED_DATE";
+    private TimeTableService service;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_table_view);
         // TODO get ID timetable
+        service=new TimeTableService(this);
         mTitle = getTitle();
         initTimetableEtt();
         final InfiniteViewPager viewPager = (InfiniteViewPager) findViewById(R.id.infinite_viewpager);
@@ -79,13 +72,12 @@ public class TimeTableViewActivity extends ActionBarActivity implements OnItemCl
             Intent intent=getIntent();
             long ttId = intent.getLongExtra(TIMETABLE_ID_TAG, 0);
             if(ttId==0){
-                ett=TimeTableDbManager.getNewestTimeTable(this);
+                ett=service.getNewest();
             }else {
-                ett = TimeTableDbManager.getTimeTable(ttId, this);
+                ett = service.findById(ttId);
             }
         }catch(NullPointerException e){
             Log.e(LOG_TAG, e.getMessage(), e);
-            // TODO
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage(), e);
         }

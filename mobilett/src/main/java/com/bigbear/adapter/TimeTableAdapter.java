@@ -1,9 +1,5 @@
 package com.bigbear.adapter;
 
-import com.bigbear.common.TimeCommon;
-import com.bigbear.db.TimeTableEtt;
-import com.bigbear.mobilett.R;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,15 +8,19 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.bigbear.common.TimeCommon;
+import com.bigbear.entity.TimeTable;
+import com.bigbear.mobilett.R;
+
 /**
- * Nên bỏ đi
+ * Adapter cho danh sách Thời khóa biểu
  */
 @SuppressLint("ViewHolder")
-public class TimeTableAdapter extends ArrayAdapter<TimeTableEtt>{
+public class TimeTableAdapter extends ArrayAdapter<TimeTable>{
 	private final Context context;
-	  private final TimeTableEtt[] values;
+	  private final TimeTable[] values;
 
-	  public TimeTableAdapter(Context context, TimeTableEtt[] values) {
+	  public TimeTableAdapter(Context context, TimeTable[] values) {
 	    super(context, R.layout.tt_item, values);
 	    this.context = context;
 	    this.values = values;

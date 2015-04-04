@@ -5,20 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
-import com.appspot.hlutimetable.timetable.model.TimeTableStudentResponse;
 import com.appspot.hlutimetable.timetable.model.TimeTableSubjectClassResponse;
-import com.appspot.hlutimetable.timetable.model.TimeTableSubjectStudyDayResponse;
 import com.bigbear.common.TimeCommon;
-import com.bigbear.common.Validate;
-import com.bigbear.db.SubjectEtt;
-import com.bigbear.db.SubjectStudyClassEtt;
-import com.bigbear.entity.Student;
 import com.bigbear.entity.Subject;
 import com.bigbear.entity.SubjectClass;
-import com.bigbear.entity.SubjectClass;
+import com.bigbear.entity.SubjectStudyClass;
 import com.bigbear.entity.TimeTable;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by luanvu on 4/1/15.
@@ -114,12 +109,13 @@ public class SubjectClassDao extends AbstractDao<SubjectClass> implements Subjec
     @Override
     public void setValue(Cursor rs, SubjectClass entity) {
         try {
+            SubjectDao subjectDao=new SubjectDao(getContext());
             entity.setId(rs.getLong(0));
-            entity.setSubject(new Subject(rs.getLong(2)));
-            entity.setTheoryClass(rs.getString(3));
-            entity.setSeminarClass(rs.getString(4));
-            entity.setStartDate(TimeCommon.parseDate(rs.getString(5)));
-            entity.setEndDate(TimeCommon.parseDate(rs.getString(6)));
+            entity.setSubject(subjectDao.findById(rs.getLong(1)));
+            entity.setTheoryClass(rs.getString(2));
+            entity.setSeminarClass(rs.getString(3));
+            entity.setStartDate(TimeCommon.parseDate(rs.getString(4)));
+            entity.setEndDate(TimeCommon.parseDate(rs.getString(5)));
         } catch (Exception e) {
             Log.d("SUBJECT_CLASS TABLE", "Set value error: " + e.getMessage());
         }
@@ -132,6 +128,13 @@ public class SubjectClassDao extends AbstractDao<SubjectClass> implements Subjec
         entity.setTheoryClass(res.getTheoryClass());
         entity.setSeminarClass(res.getSeminarClass());
         entity.setSubject(subjectDao.getEntityFromResponse(res.getSubject()));
+        return entity;
+    }
+    @Override
+    public SubjectClass findById(long id) {
+        Cursor rs = getDb().query(getTableName(), getColumnNames(), getKeyIDName()+"="+id, null, null, null, null);
+        SubjectClass entity=new SubjectClass();
+        setValue(rs, entity);
         return entity;
     }
 }

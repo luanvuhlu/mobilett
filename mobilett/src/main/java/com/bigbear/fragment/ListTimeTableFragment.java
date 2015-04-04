@@ -1,6 +1,7 @@
 package com.bigbear.fragment;
 
 import java.io.IOException;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,12 +21,12 @@ import com.appspot.hlutimetable.timetable.Timetable;
 import com.appspot.hlutimetable.timetable.Timetable.TimetableOperations.GetTimeTable;
 import com.appspot.hlutimetable.timetable.model.TimeTableTimeTableResponse;
 import com.bigbear.adapter.TimeTableAdapter;
-import com.bigbear.db.TimeTableDbManager;
-import com.bigbear.db.TimeTableEtt;
+import com.bigbear.entity.TimeTable;
 import com.bigbear.mobilett.AppConstants;
 import com.bigbear.mobilett.MainActivity;
 import com.bigbear.mobilett.MainActivity.PlaceholderFragment;
 import com.bigbear.mobilett.R;
+import com.bigbear.service.TimeTableService;
 import com.gc.materialdesign.views.ButtonFloat;
 
 /**
@@ -35,6 +36,7 @@ import com.gc.materialdesign.views.ButtonFloat;
 public class ListTimeTableFragment extends Fragment {
     private static final String LOG_TAG = "LIST_TIME_TABLE";
     public static final String TIMETABLE_ID_TAG = "TIMETABLE_ID_TAG";
+    private TimeTableService service;
     /**
      * Quét QR Code
      * <br />Bắt đầu từ {@link #scanQr()}
@@ -44,6 +46,7 @@ public class ListTimeTableFragment extends Fragment {
     private ButtonFloat addBtn;
 
     public ListTimeTableFragment() {
+        service=new TimeTableService(getActivity());
     }
 
     @Override
@@ -97,10 +100,10 @@ public class ListTimeTableFragment extends Fragment {
      */
     private void setList(View rootView) {
         final ListView lv = (ListView) rootView.findViewById(R.id.listTT);
-
-        TimeTableEtt[] ettArrs = TimeTableDbManager.getAllEntries(getActivity());
-        TimeTableAdapter timeTableAdapter = new TimeTableAdapter(
-                getActivity(), ettArrs);
+        List<TimeTable> ls=service.findAll();
+        TimeTable[] ettArrs = new TimeTable[ls.size()];
+        ls.toArray(ettArrs);
+        TimeTableAdapter timeTableAdapter = new TimeTableAdapter(getActivity(), ettArrs);
 
         lv.setAdapter(timeTableAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -122,7 +125,7 @@ public class ListTimeTableFragment extends Fragment {
      */
     private void timeTableClicked(AdapterView<?> parent, View view,
                                   int position, long id) {
-        final TimeTableEtt item = (TimeTableEtt) parent
+        final TimeTable item = (TimeTable) parent
                 .getItemAtPosition(position);
         FragmentManager fragmentManager = getActivity()
                 .getSupportFragmentManager();
@@ -182,8 +185,8 @@ public class ListTimeTableFragment extends Fragment {
             Log.d(LOG_TAG, "TimeTable was not present");
             return;
         }
-        boolean res = TimeTableDbManager.saveDb(timeTableResponses[0], getActivity());
-        Log.i(LOG_TAG, "Insert db: " + (res ? "success" : "fail") + " !");
+        long id = service.save(timeTableResponses[0]);
+        Log.i(LOG_TAG, "Insert db ID: " + id);
     }
 
     @Override

@@ -1,12 +1,8 @@
 package com.bigbear.fragment;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,26 +14,24 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
-import android.widget.WrapperListAdapter;
 
 import com.bigbear.adapter.DefaultListHoursAdapter;
 import com.bigbear.adapter.ListTimeTableDay;
 import com.bigbear.adapter.TimeTableDayitem;
 import com.bigbear.common.Text;
 import com.bigbear.common.TimeCommon;
-import com.bigbear.db.SubjectClassEtt;
-import com.bigbear.db.TimeTableDbManager;
-import com.bigbear.db.TimeTableEtt;
-import com.bigbear.mobilett.MainActivity;   
-import com.bigbear.mobilett.R;
+import com.bigbear.entity.TimeTable;
+import com.bigbear.mobilett.MainActivity;
 import com.bigbear.mobilett.MainActivity.PlaceholderFragment;
+import com.bigbear.mobilett.R;
+import com.bigbear.service.TimeTableService;
 import com.felipecsl.asymmetricgridview.library.widget.AsymmetricGridView;
 import com.felipecsl.asymmetricgridview.library.widget.AsymmetricGridViewAdapter;
 import com.thehayro.view.InfinitePagerAdapter;
 import com.thehayro.view.InfiniteViewPager;
 
-import de.keyboardsurfer.android.widget.crouton.Crouton;
-import de.keyboardsurfer.android.widget.crouton.Style;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Giao diện chính hiển thị thông tin thời khóa biểu
@@ -47,12 +41,15 @@ public class TimeTableFragment extends Fragment  implements OnItemClickListener 
 	private static final String LOG_TAG="TIME_TABLE_FRAGMENT";
     private static final String SUBJECT_CLASS_DAY_TAG = "SUBJECT_CLASS_DAY_TAG";
     private static final String TIMETABLE_TAG = "TIMETABLE_TAG";
-    private static TimeTableEtt ett;
+    private static TimeTable ett;
     private long currentTTId;
     private DayAdapter dayAdapter;
 	public static final String SUBJECT_CLASS_STUDY_ID = "SUBJECT_CLASS_STUDY_ID";
 	public static final String SELECTED_DATE = "SELECTED_DATE";
-	public TimeTableFragment() {}
+    private TimeTableService service;
+	public TimeTableFragment() {
+        service=new TimeTableService();
+    }
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -118,9 +115,9 @@ public class TimeTableFragment extends Fragment  implements OnItemClickListener 
 			}
 			long ttId = getArguments().getLong(ListTimeTableFragment.TIMETABLE_ID_TAG);
             if(ttId==0L){
-                ett = TimeTableDbManager.getNewestTimeTable(getActivity());
+                ett = service.getNewest();
             }else {
-                ett = TimeTableDbManager.getTimeTable(ttId, getActivity());
+                ett = service.findById(ttId);
             }
             currentTTId=ett.getId();
 		}catch(NullPointerException e){

@@ -1,7 +1,5 @@
 package com.bigbear.adapter;
 
-import com.bigbear.db.SubjectEtt;
-
 /**
  * Entity cho mỗi ô
  * @author luanvu

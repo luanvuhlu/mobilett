@@ -8,6 +8,7 @@ import android.util.Log;
 import com.appspot.hlutimetable.timetable.model.TimeTableStudentResponse;
 import com.bigbear.common.Validate;
 import com.bigbear.entity.Student;
+import com.bigbear.entity.TimeTable;
 
 /**
  * Created by luanvu on 4/1/15.
@@ -107,5 +108,12 @@ public class StudentDao extends AbstractDao<Student> implements StudentDaoInterf
         student.setName(response.getName());
         student.setStudentClass(response.getStudentClass());
         return student;
+    }
+    @Override
+    public Student findById(long id) {
+        Cursor rs = getDb().query(getTableName(), getColumnNames(), getKeyIDName()+"="+id, null, null, null, null);
+        Student entity=new Student();
+        setValue(rs, entity);
+        return entity;
     }
 }

@@ -1,6 +1,7 @@
 package com.bigbear.common;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -94,11 +95,11 @@ public class TimeCommon {
      * @return
      * @throws Exception
      */
-	public static Date parseDate(String value, String f) throws Exception{
+	public static Date parseDate(String value, String f) throws ParseException{
 		if(value==null || "".equals(value)) return null;
 		try{
 			return new SimpleDateFormat(f, locale).parse(value);
-		}catch( Exception e){
+		}catch( ParseException e){
 			throw e;
 		}
 	}

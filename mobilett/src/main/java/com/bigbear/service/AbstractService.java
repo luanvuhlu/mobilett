@@ -8,6 +8,9 @@ import android.content.Context;
 public abstract class AbstractService {
     private Context context;
 
+    protected AbstractService() {
+    }
+
     public AbstractService(Context context) {
         this.context = context;
     }

@@ -6,11 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.bigbear.db.StudentEtt;
-import com.bigbear.db.SubjectClassEtt;
-import com.bigbear.db.SubjectEtt;
-import com.bigbear.db.SubjectStudyClassEtt;
-import com.bigbear.db.TimeTableEtt;
 
 /**
  * Created by luanvu on 4/1/15.
@@ -50,11 +45,13 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_SUBJECT_STUDY_CLASS_SQL = "CREATE TABLE SUBJECT_STUDY_CLASS ( ID"
             + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + " SUBJECT_CLASS_ID INTEGER NOT NULL, "
+            + " TIMETABLE_ID INTEGER NOT NULL, "
             + " CLASS_TYPE TEXT NOT NULL, "
             + " DAY_NAME TEXT NOT NULL, "
             + " DAY_HOURS TEXT NOT NULL, "
             + " DAY_LOCATION TEXT NOT NULL , "
-            + " FOREIGN KEY (SUBJECT_CLASS_ID) REFERENCES SUBJECT_CLASS(ID) ); ";
+            + " FOREIGN KEY (SUBJECT_CLASS_ID) REFERENCES SUBJECT_CLASS(ID) ); "
+            + " FOREIGN KEY (TIMETABLE_ID) REFERENCES TIMETABLE(ID) ); ";
     private static final String CREATE_TABLE_TIMETABLE_SQL = "CREATE TABLE TIMETABLE ( ID"
             + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + " STUDENT_ID INTEGER NOT NULL, "

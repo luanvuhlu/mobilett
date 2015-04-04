@@ -5,17 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
-import com.appspot.hlutimetable.timetable.model.TimeTableSubjectClassResponse;
 import com.appspot.hlutimetable.timetable.model.TimeTableSubjectResponse;
-import com.appspot.hlutimetable.timetable.model.TimeTableSubjectStudyDayResponse;
-import com.bigbear.common.TimeCommon;
 import com.bigbear.common.Validate;
-import com.bigbear.db.SubjectStudyClassEtt;
-import com.bigbear.entity.Student;
 import com.bigbear.entity.Subject;
 import com.bigbear.entity.SubjectClass;
-
-import java.util.ArrayList;
 
 /**
  * Created by luanvu on 4/1/15.
@@ -118,6 +111,13 @@ public class SubjectDao extends AbstractDao<Subject> implements SubjectDaoInterf
         entity.setSubjectCode(res.getSubjectCode());
         entity.setSubjectName(res.getSubjectName());
         entity.setSubjectShortName(res.getSubjectShortName());
+        return entity;
+    }
+    @Override
+    public Subject findById(long id) {
+        Cursor rs = getDb().query(getTableName(), getColumnNames(), getKeyIDName()+"="+id, null, null, null, null);
+        Subject entity=new Subject();
+        setValue(rs, entity);
         return entity;
     }
 }

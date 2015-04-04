@@ -8,7 +8,8 @@ import android.util.Log;
 
 import com.bigbear.common.Text;
 import com.bigbear.common.TimeCommon;
-import com.bigbear.db.TimeTableEtt;
+import com.bigbear.entity.TimeTable;
+import com.bigbear.service.TimeTableService;
 
 /**
  * Danh sách các ô chứa trên grid
@@ -16,11 +17,12 @@ import com.bigbear.db.TimeTableEtt;
  */
 public class ListTimeTableDay {
 	private static final String LOG_TAG = "LIST_TIMETABLE_DAY";
-	public static List<TimeTableDayitem> getListTimeTableDayitem(TimeTableEtt ett, Date d){
+	public static List<TimeTableDayitem> getListTimeTableDayitem(TimeTable ett, Date d){
 		List<TimeTableDayitem> hourItems=new ArrayList<>();
 		ListHours hoursDetail=null;
+        TimeTableService timeTableService=new TimeTableService();
 		try {
-			hoursDetail=ett.getSubjectStudyOnDate(d);
+			hoursDetail=timeTableService.getSubjectStudyOnDate(ett, d);
 
 			if(hoursDetail.size() < 1){
 				Log.i(LOG_TAG, "This day is freedom: "+TimeCommon.formatDateVnText(d));
