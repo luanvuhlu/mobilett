@@ -17,6 +17,8 @@ public abstract class AbstractDao<T> {
     private DBHelper helper;
     private Context context;
     private SQLiteDatabase db;
+    public static final int WRITE_MODE=1;
+    public static final int READ_MODE=0;
 
     protected AbstractDao() {
     }
@@ -38,8 +40,26 @@ public abstract class AbstractDao<T> {
      * Open database
      * @throws SQLException
      */
-    public void open() throws SQLException {
+    private void openWrite() throws SQLException {
         db=helper.getWritableDatabase();
+    }
+    /**
+     * Open database
+     * @throws SQLException
+     */
+    private void openRead() throws SQLException {
+        db=helper.getReadableDatabase();
+    }
+    /**
+     * Open database
+     * @throws SQLException
+     */
+    public void open(int mode) throws SQLException {
+        if(mode==WRITE_MODE){
+            openWrite();
+        }else{
+            openRead();
+        }
     }
 
     /**

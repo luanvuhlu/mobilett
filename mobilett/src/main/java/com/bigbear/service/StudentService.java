@@ -2,6 +2,7 @@ package com.bigbear.service;
 
 import android.content.Context;
 
+import com.bigbear.dao.AbstractDao;
 import com.bigbear.dao.StudentDao;
 import com.bigbear.entity.Student;
 
@@ -20,7 +21,15 @@ public class StudentService extends AbstractService {
      * @return id student hoặc -1 nếu thất bại
      */
     public long save(Student student){
-        StudentDao dao=new StudentDao(getContext());
-        return dao.save(student);
+        StudentDao dao=null;
+        try {
+            new StudentDao(getContext());
+            dao.open(AbstractDao.WRITE_MODE);
+            return dao.save(student);
+        }catch (Exception e){
+            throw  e;
+        }finally {
+            if(dao!=null)dao.close();
+        }
     }
 }

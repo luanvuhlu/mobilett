@@ -19,6 +19,8 @@ import com.bigbear.fragment.ListTimeTableFragment;
 import com.bigbear.fragment.NavigationDrawerFragment;
 import com.bigbear.fragment.SubjectDayFragment;
 import com.bigbear.fragment.TimeTableFragment;
+import com.bigbear.service.TimeTableService;
+import com.bigbear.service.UtilService;
 
 import java.util.Locale;
 
@@ -59,6 +61,7 @@ public class MainActivity extends ActionBarActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		initConfig();
+        initDb();
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
 		mTitle = getTitle();
@@ -67,7 +70,10 @@ public class MainActivity extends ActionBarActivity implements
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
 	}
-
+    private void initDb(){
+        UtilService service=new UtilService(this);
+        service.initDatabase();
+    }
 	public void onNavigationDrawerItemSelected(int position) {
         getSupportFragmentManager()
 				.beginTransaction()

@@ -21,7 +21,9 @@ import java.util.Date;
 public class SubjectDayFragment extends Fragment   {
 	private static final String LOG_TAG="SUBJECT_DAY_FRAGMENT";
 	private Date currentDateSelected;
-	public SubjectDayFragment() {}
+	public SubjectDayFragment() {
+        super();
+    }
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

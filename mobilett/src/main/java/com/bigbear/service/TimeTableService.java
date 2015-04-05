@@ -6,6 +6,7 @@ import com.appspot.hlutimetable.timetable.model.TimeTableTimeTableResponse;
 import com.bigbear.adapter.HoursEntity;
 import com.bigbear.adapter.ListHours;
 import com.bigbear.common.TimeCommon;
+import com.bigbear.dao.AbstractDao;
 import com.bigbear.dao.StudentDao;
 import com.bigbear.dao.SubjectClassDao;
 import com.bigbear.dao.SubjectStudyClassDao;
@@ -37,8 +38,7 @@ public class TimeTableService extends AbstractService {
         TimeTableDao dao=null;
         try {
             dao = new TimeTableDao(getContext());
-
-            dao.open();
+            dao.open(AbstractDao.WRITE_MODE);
             return dao.save(entity);
         }catch (Exception e){
             throw e;
@@ -57,7 +57,7 @@ public class TimeTableService extends AbstractService {
         TimeTableDao dao =null;
         try {
              dao = new TimeTableDao(getContext());
-            dao.open();
+            dao.open(AbstractDao.WRITE_MODE);
             StudentDao studentDao = new StudentDao(getContext());
             SubjectClassDao subjectClassDao=new SubjectClassDao(getContext());
             SubjectStudyClassDao subjectStudyClassDao=new SubjectStudyClassDao(getContext());
@@ -128,6 +128,7 @@ public class TimeTableService extends AbstractService {
         TimeTableDao dao=null;
         try{
             dao=new TimeTableDao(getContext());
+            dao.open(AbstractDao.READ_MODE);
             return dao.findAll();
         }catch (Exception e){
             throw e;
@@ -143,6 +144,7 @@ public class TimeTableService extends AbstractService {
         TimeTableDao dao=null;
         try{
             dao=new TimeTableDao(getContext());
+            dao.open(AbstractDao.READ_MODE);
             return dao.getNewest();
         }catch (Exception e){
             throw e;
@@ -159,6 +161,7 @@ public class TimeTableService extends AbstractService {
         TimeTableDao dao=null;
         try{
             dao=new TimeTableDao(getContext());
+            dao.open(AbstractDao.READ_MODE);
             return dao.findById(id);
         }catch (Exception e){
             throw e;

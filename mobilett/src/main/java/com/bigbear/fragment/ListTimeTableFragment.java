@@ -46,7 +46,7 @@ public class ListTimeTableFragment extends Fragment {
     private ButtonFloat addBtn;
 
     public ListTimeTableFragment() {
-        service=new TimeTableService(getActivity());
+        super();
     }
 
     @Override
@@ -192,6 +192,7 @@ public class ListTimeTableFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        service=new TimeTableService(getActivity());
         try {
             ((MainActivity) activity).onSectionAttached(getArguments().getInt(
                     MainActivity.ARG_SECTION_NUMBER));

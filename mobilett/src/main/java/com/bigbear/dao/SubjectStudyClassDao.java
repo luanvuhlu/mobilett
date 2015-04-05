@@ -77,15 +77,7 @@ public class SubjectStudyClassDao extends AbstractDao<SubjectStudyClass> impleme
 
     @Override
     public long delete(long id) {
-        try {
-            open();
             return getDb().delete(getTableName(), getKeyIDName() + "=" + id, null);
-        } catch (Exception e) {
-            Log.e(LOG_TAG, e.getMessage(), e);
-            throw e;
-        } finally {
-            close();
-        }
 
     }
 

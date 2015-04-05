@@ -27,8 +27,7 @@ public class DBHelper extends SQLiteOpenHelper {
             + " SEMINAR_CLASS TEXT, "
             + " START_DATE DATE, "
             + " END_DATE DATE, "
-            + " FOREIGN KEY (SUBJECT_ID) REFERENCES SUBJECT(ID), "
-            + " FOREIGN KEY (TIMETABLE_ID) REFERENCES TIMETABLE(ID)  ); ";
+            + " FOREIGN KEY (SUBJECT_ID) REFERENCES SUBJECT(ID)";
     private static final String CREATE_TABLE_STUDENT_SQL="CREATE TABLE STUDENT ( "
             + "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
             + " CODE TEXT NOT NULL, "
@@ -70,11 +69,12 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         try{
-            db.execSQL(CREAT_TABLE_SUBJECT_CLASS_SQL);
             db.execSQL(CREATE_TABLE_STUDENT_SQL);
             db.execSQL(CREATE_TABLE_SUBJECT_SQL);
+            db.execSQL(CREAT_TABLE_SUBJECT_CLASS_SQL);
             db.execSQL(CREATE_TABLE_SUBJECT_STUDY_CLASS_SQL);
             db.execSQL(CREATE_TABLE_TIMETABLE_SQL);
+
         }catch(SQLException e){
             Log.e(LOG_TAG, "Create table error: " + e.getMessage(), e);
             throw e;
@@ -87,6 +87,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 newVersion +
                 ", which will destroy all old data");
         for(String str:DATABASE_TABLES){
+
             db.execSQL(" DROP TABLE IF EXISTS " + str+"; ");
         }
         onCreate(db);

@@ -48,7 +48,8 @@ public class TimeTableFragment extends Fragment  implements OnItemClickListener 
 	public static final String SELECTED_DATE = "SELECTED_DATE";
     private TimeTableService service;
 	public TimeTableFragment() {
-        service=new TimeTableService();
+        super();
+
     }
 
 	@Override
@@ -109,6 +110,8 @@ public class TimeTableFragment extends Fragment  implements OnItemClickListener 
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
+        service=new TimeTableService(getActivity());
+        Log.d(LOG_TAG, (getActivity()==null)+"");
 		try{
 			if(getArguments()==null){
 				return;
