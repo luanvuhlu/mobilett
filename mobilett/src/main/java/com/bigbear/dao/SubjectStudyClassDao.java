@@ -3,6 +3,7 @@ package com.bigbear.dao;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.appspot.hlutimetable.timetable.model.TimeTableSubjectStudyDayResponse;
@@ -19,12 +20,16 @@ import java.util.Set;
  * Created by luanvu on 4/1/15.
  */
 public class SubjectStudyClassDao extends AbstractDao<SubjectStudyClass> implements SubjectStudyClassDaoInterface<SubjectStudyClass> {
-    private static final String LOG_TAG = "StudentDao";
+    private static final String LOG_TAG = "SubjectStudyClassDao";
 
     public SubjectStudyClassDao(Context context) {
         super(context);
     }
     public SubjectStudyClassDao() {
+    }
+
+    public SubjectStudyClassDao(Context context, SQLiteDatabase db) {
+        super(context, db);
     }
 
     @Override
@@ -67,6 +72,7 @@ public class SubjectStudyClassDao extends AbstractDao<SubjectStudyClass> impleme
             ContentValues contentValues = toValue(entity);
             long id= getDb().insert(getTableName(), null, contentValues);
             entity.setId(id);
+            Log.d(LOG_TAG, "Saved Subject_Study_Class id: "+id);
             return id;
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage(), e);
@@ -118,7 +124,7 @@ public class SubjectStudyClassDao extends AbstractDao<SubjectStudyClass> impleme
     @Override
     public void setValue(Cursor rs, SubjectStudyClass entity) {
         try{
-            SubjectClassDao subjectClassDao=new SubjectClassDao(getContext());
+            SubjectClassDao subjectClassDao=new SubjectClassDao(getContext(), getDb());
             entity.setId(rs.getLong(0));
             entity.setTimeTable(new TimeTable(rs.getLong(1)));
             entity.setSubjectClass(subjectClassDao.findById(rs.getLong(2)));

@@ -3,6 +3,7 @@ package com.bigbear.dao;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.appspot.hlutimetable.timetable.model.TimeTableStudentResponse;
@@ -19,13 +20,17 @@ public class StudentDao extends AbstractDao<Student> implements StudentDaoInterf
     public StudentDao() {
     }
 
+    public StudentDao(Context context, SQLiteDatabase db) {
+        super(context, db);
+    }
+
     public StudentDao(Context context) {
         super(context);
     }
 
     @Override
     public String getTableName() {
-        return null;
+        return "STUDENT";
     }
 
     @Override
@@ -61,8 +66,10 @@ public class StudentDao extends AbstractDao<Student> implements StudentDaoInterf
     public long save(Student student) {
         try {
             ContentValues contentValues = toValue(student);
+            Log.d(LOG_TAG, "DB is null: "+(getDb()==null));
             long id=getDb().insert(getTableName(), null, contentValues);
             student.setId(id);
+            Log.d(LOG_TAG, "Saved Student id: "+id);
             return id;
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage(), e);
@@ -93,10 +100,11 @@ public class StudentDao extends AbstractDao<Student> implements StudentDaoInterf
     @Override
     public void setValue(Cursor rs, Student entity) {
         try {
-            entity.setId(rs.getLong(0));
-            entity.setCode(Validate.repNullCursor(1, rs));
-            entity.setName(Validate.repNullCursor(2, rs));
-            entity.setStudentClass(Validate.repNullCursor(3, rs));
+            Log.d(LOG_TAG, "Student id: "+rs.getLong(rs.getColumnIndexOrThrow("ID")));
+            entity.setId(rs.getLong(rs.getColumnIndexOrThrow("ID")));
+            entity.setCode(Validate.repNullCursor(rs.getColumnIndexOrThrow("CODE"), rs));
+            entity.setName(Validate.repNullCursor(rs.getColumnIndexOrThrow("NAME"), rs));
+            entity.setStudentClass(Validate.repNullCursor(rs.getColumnIndexOrThrow("STUDENT_CLASS"), rs));
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             throw e;

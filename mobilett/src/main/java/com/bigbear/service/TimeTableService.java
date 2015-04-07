@@ -1,6 +1,7 @@
 package com.bigbear.service;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.appspot.hlutimetable.timetable.model.TimeTableTimeTableResponse;
 import com.bigbear.adapter.HoursEntity;
@@ -9,19 +10,24 @@ import com.bigbear.common.TimeCommon;
 import com.bigbear.dao.AbstractDao;
 import com.bigbear.dao.StudentDao;
 import com.bigbear.dao.SubjectClassDao;
+import com.bigbear.dao.SubjectDao;
 import com.bigbear.dao.SubjectStudyClassDao;
 import com.bigbear.dao.TimeTableDao;
+import com.bigbear.entity.SubjectClass;
 import com.bigbear.entity.SubjectStudyClass;
 import com.bigbear.entity.TimeTable;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by luanvu on 4/2/15.
  */
 public class TimeTableService extends AbstractService {
+    private static final String LOG_TAG = "TimeTableService";
     public TimeTableService(Context context) {
         super(context);
     }
@@ -58,16 +64,23 @@ public class TimeTableService extends AbstractService {
         try {
              dao = new TimeTableDao(getContext());
             dao.open(AbstractDao.WRITE_MODE);
-            StudentDao studentDao = new StudentDao(getContext());
-            SubjectClassDao subjectClassDao=new SubjectClassDao(getContext());
-            SubjectStudyClassDao subjectStudyClassDao=new SubjectStudyClassDao(getContext());
+            StudentDao studentDao = new StudentDao(getContext(), dao.getDb());
+            SubjectClassDao subjectClassDao=new SubjectClassDao(getContext(), dao.getDb());
+            SubjectDao subjectDao=new SubjectDao(getContext(), dao.getDb());
+            SubjectStudyClassDao subjectStudyClassDao=new SubjectStudyClassDao(getContext(), dao.getDb());
             TimeTable entity = dao.getEntityFromResponse(timeTableResponse);
+            long id=dao.save(entity);
             studentDao.save(entity.getStudent());
+            Set<SubjectClass> subjectClasses=new HashSet<>();
             for(SubjectStudyClass subjectStudyClass:entity.getSubjectStudyClass()){
-                subjectClassDao.save(subjectStudyClass.getSubjectClass());
+                if(!subjectClasses.contains(subjectStudyClass.getSubjectClass())) {
+                    subjectDao.save(subjectStudyClass.getSubjectClass().getSubject());
+                    subjectClassDao.save(subjectStudyClass.getSubjectClass());
+                    subjectClasses.add(subjectStudyClass.getSubjectClass());
+                }
                 subjectStudyClassDao.save(subjectStudyClass);
             }
-            return dao.save(entity);
+            return id;
         }catch (Exception e){
             e.printStackTrace();
             throw  e;
@@ -147,7 +160,8 @@ public class TimeTableService extends AbstractService {
             dao.open(AbstractDao.READ_MODE);
             return dao.getNewest();
         }catch (Exception e){
-            throw e;
+            Log.e(LOG_TAG, e.getMessage(), e);
+            throw  e;
         }finally {
             if(dao!=null)dao.close();
         }

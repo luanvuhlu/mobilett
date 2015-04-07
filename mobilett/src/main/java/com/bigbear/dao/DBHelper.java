@@ -20,14 +20,14 @@ public class DBHelper extends SQLiteOpenHelper {
                     "SUBJECT_CLASS",
                     "SUBJECT_STUDY_CLASS"
             };
-    private static final String CREAT_TABLE_SUBJECT_CLASS_SQL = "CREATE TABLE SUBJECT_CLASS ( ID"
-            + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+    private static final String CREAT_TABLE_SUBJECT_CLASS_SQL = "CREATE TABLE SUBJECT_CLASS ( "
+            + " ID INTEGER PRIMARY KEY AUTOINCREMENT, "
             + " SUBJECT_ID INTEGER NOT NULL, "
             + " THEORY_CLASS TEXT NOT NULL, "
             + " SEMINAR_CLASS TEXT, "
             + " START_DATE DATE, "
             + " END_DATE DATE, "
-            + " FOREIGN KEY (SUBJECT_ID) REFERENCES SUBJECT(ID)";
+            + " FOREIGN KEY (SUBJECT_ID) REFERENCES SUBJECT(ID) );";
     private static final String CREATE_TABLE_STUDENT_SQL="CREATE TABLE STUDENT ( "
             + "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
             + " CODE TEXT NOT NULL, "

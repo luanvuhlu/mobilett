@@ -24,7 +24,7 @@ import java.util.List;
  * Created by luanvu on 4/1/15.
  */
 public class TimeTableDao extends AbstractDao<TimeTable> implements TimeTableDaoInterface<TimeTable> {
-    private static final String LOG_TAG = "StudentDao";
+    private static final String LOG_TAG = "TimeTableDao";
 
     public TimeTableDao(Context context) {
         super(context);
@@ -67,56 +67,60 @@ public class TimeTableDao extends AbstractDao<TimeTable> implements TimeTableDao
     @Override
     public long save(TimeTable entity) {
 
-            ContentValues contentValues = toValue(entity);
-            return getDb().insert(getTableName(), null, contentValues);
+        ContentValues contentValues = toValue(entity);
+        long id = getDb().insert(getTableName(), null, contentValues);
+        entity.setId(id);
+        return id;
 
     }
 
     @Override
     public long delete(long id) {
-            return getDb().delete(getTableName(), getKeyIDName() + "=" + id, null);
+        return getDb().delete(getTableName(), getKeyIDName() + "=" + id, null);
     }
-// TODO
+
+    // TODO
     @Override
     public List<TimeTable> findAll() {
-        List<TimeTable> etts=new ArrayList<TimeTable>();
-        Cursor cs=getAllEntries();
-        if(cs ==null){
+        List<TimeTable> etts = new ArrayList<TimeTable>();
+        Cursor cs = getAllEntries();
+        if (cs == null) {
             Log.d(LOG_TAG, "No row !");
             return etts;
         }
-        if(cs.moveToFirst()){
-            do{
-                TimeTable ett=new TimeTable();
+        if (cs.moveToFirst()) {
+            do {
+                TimeTable ett = new TimeTable();
                 setValue(cs, ett);
-
                 etts.add(ett);
-            }while(cs.moveToNext());
-        }else{
+            } while (cs.moveToNext());
+        } else {
             Log.d(LOG_TAG, "Cursor empty !");
         }
         return etts;
     }
+
     // TODO
     @Override
     public TimeTable getNewest() {
-        TimeTable ett=new TimeTable();
-        Cursor rs=getDb().query(getTableName(), getColumnNames(), null, null, null, null, "CREATED_TIME DESC");
+        TimeTable ett = new TimeTable();
+        Cursor rs = getDb().query(getTableName(), getColumnNames(), null, null, null, null, "CREATED_TIME DESC");
         setValue(rs, ett);
         return ett;
     }
+
     @Override
     public TimeTable findById(long id) {
-        Cursor rs = getDb().query(getTableName(), getColumnNames(), getKeyIDName()+"="+id, null, null, null, null);
-        TimeTable timeTable=new TimeTable();
+        Cursor rs = getDb().query(getTableName(), getColumnNames(), getKeyIDName() + "=" + id, null, null, null, null);
+        TimeTable timeTable = new TimeTable();
         setValue(rs, timeTable);
         return timeTable;
     }
 
     @Override
     public ContentValues toValue(TimeTable entity) {
-        ContentValues value=new ContentValues();
-        if(entity.getId()!=0) value.put("ID", entity.getId());
+        ContentValues value = new ContentValues();
+        if (entity.getId() != 0) value.put("ID", entity.getId());
         value.put("STUDENT_ID", entity.getStudent().getId());
         value.put("SEMESTER", entity.getSemester());
         value.put("YEAR", entity.getYear());
@@ -125,31 +129,34 @@ public class TimeTableDao extends AbstractDao<TimeTable> implements TimeTableDao
 
     @Override
     public void setValue(Cursor rs, TimeTable entity) {
-        try{
-            StudentDao studentDao=new StudentDao(getContext());
-            SubjectStudyClassDao subjectStudyClassDao=new SubjectStudyClassDao(getContext());
-            entity.setId(rs.getLong(0));
-            entity.setStudent(studentDao.findById(rs.getLong(1)));
-            entity.setSemester(Validate.repNullCursor(2, rs));
-            entity.setYear(Validate.repNullCursor(3, rs));
-            entity.setCreatedDate(TimeCommon.parseDate(Validate.repNullCursor(4, rs), TimeCommon.DEFAULT_CURSOR_DATE));
+        try {
+            StudentDao studentDao = new StudentDao(getContext(), getDb());
+            SubjectStudyClassDao subjectStudyClassDao = new SubjectStudyClassDao(getContext(), getDb());
+            entity.setId(rs.getLong(rs.getColumnIndexOrThrow("ID")));
+            Log.d(LOG_TAG, "Student id: " + rs.getLong(rs.getColumnIndexOrThrow("STUDENT_ID")));
+            entity.setStudent(studentDao.findById(rs.getLong(rs.getColumnIndexOrThrow("STUDENT_ID"))));
+            entity.setSemester(Validate.repNullCursor(rs.getColumnIndexOrThrow("SEMESTER"), rs));
+            entity.setYear(Validate.repNullCursor(rs.getColumnIndexOrThrow("YEAR"), rs));
+            entity.setCreatedDate(TimeCommon.parseDate(Validate.repNullCursor(rs.getColumnIndexOrThrow("CREATED_TIME"), rs), TimeCommon.DEFAULT_CURSOR_DATE));
             entity.setSubjectStudyClass(subjectStudyClassDao.getFromTimeTable(entity));
-        }catch(ParseException e){
-            Log.e(LOG_TAG, "ERROR: "+e.getMessage(), e);
+        } catch (ParseException e) {
+            Log.e(LOG_TAG, "ERROR: " + e.getMessage(), e);
         }
     }
-    public TimeTable getEntityFromResponse(TimeTableTimeTableResponse res){
-        StudentDao studentDao=new StudentDao(getContext());
-        SubjectStudyClassDao subjectStudyClassDao=new SubjectStudyClassDao(getContext());
-        SubjectClassDao subjectClassDao=new SubjectClassDao(getContext());
-        TimeTable entity=new TimeTable();
+
+    public TimeTable getEntityFromResponse(TimeTableTimeTableResponse res) {
+        StudentDao studentDao = new StudentDao(getContext());
+        SubjectStudyClassDao subjectStudyClassDao = new SubjectStudyClassDao(getContext());
+        SubjectClassDao subjectClassDao = new SubjectClassDao(getContext());
+        TimeTable entity = new TimeTable();
         entity.setSemester(res.getSemester());
         entity.setYear(res.getYear());
         entity.setStudent(studentDao.getEntityFromResponse(res.getStudent()));
-        for(TimeTableSubjectClassResponse subjectCLassResponse:res.getSubjectClass()){
-            SubjectClass subjectClass=subjectClassDao.getEntityFromResponse(subjectCLassResponse);
-            for(TimeTableSubjectStudyDayResponse dayResponse:subjectCLassResponse.getSubjectStudyDay()){
-                SubjectStudyClass subjectStudyClass=subjectStudyClassDao.getEntityFromResponse(dayResponse);
+        entity.setSubjectStudyClass(new HashSet<SubjectStudyClass>());
+        for (TimeTableSubjectClassResponse subjectCLassResponse : res.getSubjectClass()) {
+            SubjectClass subjectClass = subjectClassDao.getEntityFromResponse(subjectCLassResponse);
+            for (TimeTableSubjectStudyDayResponse dayResponse : subjectCLassResponse.getSubjectStudyDay()) {
+                SubjectStudyClass subjectStudyClass = subjectStudyClassDao.getEntityFromResponse(dayResponse);
                 subjectStudyClass.setTimeTable(entity);
                 subjectStudyClass.setSubjectClass(subjectClass);
                 entity.getSubjectStudyClass().add(subjectStudyClass);

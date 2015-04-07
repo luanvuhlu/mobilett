@@ -3,6 +3,7 @@ package com.bigbear.dao;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.appspot.hlutimetable.timetable.model.TimeTableSubjectClassResponse;
@@ -26,6 +27,10 @@ public class SubjectClassDao extends AbstractDao<SubjectClass> implements Subjec
     }
     public SubjectClassDao() {
 
+    }
+
+    public SubjectClassDao(Context context, SQLiteDatabase db) {
+        super(context, db);
     }
 
     @Override
@@ -68,6 +73,7 @@ public class SubjectClassDao extends AbstractDao<SubjectClass> implements Subjec
             ContentValues contentValues = toValue(entity);
             long id=getDb().insert(getTableName(), null, contentValues);
             entity.setId(id);
+            Log.d(LOG_TAG, "Saved Subject_Class id: "+id);
             return id;
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage(), e);

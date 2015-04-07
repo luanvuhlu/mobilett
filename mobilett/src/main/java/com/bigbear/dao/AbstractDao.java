@@ -20,6 +20,11 @@ public abstract class AbstractDao<T> {
     public static final int WRITE_MODE=1;
     public static final int READ_MODE=0;
 
+    protected AbstractDao(Context context, SQLiteDatabase db) {
+        this.context = context;
+        this.db = db;
+    }
+
     protected AbstractDao() {
     }
 
