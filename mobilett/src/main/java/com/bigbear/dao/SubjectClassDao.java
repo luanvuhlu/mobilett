@@ -107,6 +107,10 @@ public class SubjectClassDao extends AbstractDao<SubjectClass> implements Subjec
     @Override
     public void setValue(Cursor rs, SubjectClass entity) {
         try {
+            if(rs ==null || !rs.moveToFirst()){
+                Log.d(LOG_TAG, "Cursor subject class empty");
+                return;
+            }
             SubjectDao subjectDao=new SubjectDao(getContext());
             entity.setId(rs.getLong(0));
             entity.setSubject(subjectDao.findById(rs.getLong(1)));

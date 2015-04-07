@@ -124,6 +124,10 @@ public class SubjectStudyClassDao extends AbstractDao<SubjectStudyClass> impleme
     @Override
     public void setValue(Cursor rs, SubjectStudyClass entity) {
         try{
+            if(rs ==null || !rs.moveToFirst()){
+                Log.d(LOG_TAG, "Cursor subject study class empty");
+                return;
+            }
             SubjectClassDao subjectClassDao=new SubjectClassDao(getContext(), getDb());
             entity.setId(rs.getLong(0));
             entity.setTimeTable(new TimeTable(rs.getLong(1)));

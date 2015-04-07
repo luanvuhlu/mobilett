@@ -69,6 +69,7 @@ public class TimeTableDao extends AbstractDao<TimeTable> implements TimeTableDao
 
         ContentValues contentValues = toValue(entity);
         long id = getDb().insert(getTableName(), null, contentValues);
+        Log.d(LOG_TAG, "Saved TimeTable id: "+id);
         entity.setId(id);
         return id;
 
@@ -130,6 +131,10 @@ public class TimeTableDao extends AbstractDao<TimeTable> implements TimeTableDao
     @Override
     public void setValue(Cursor rs, TimeTable entity) {
         try {
+            if(rs ==null || !rs.moveToFirst()){
+                Log.d(LOG_TAG, "Cursor timetable empty");
+                return;
+            }
             StudentDao studentDao = new StudentDao(getContext(), getDb());
             SubjectStudyClassDao subjectStudyClassDao = new SubjectStudyClassDao(getContext(), getDb());
             entity.setId(rs.getLong(rs.getColumnIndexOrThrow("ID")));

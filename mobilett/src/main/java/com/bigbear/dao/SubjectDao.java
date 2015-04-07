@@ -100,6 +100,10 @@ public class SubjectDao extends AbstractDao<Subject> implements SubjectDaoInterf
     @Override
     public void setValue(Cursor rs, Subject entity) {
         try{
+            if(rs ==null || !rs.moveToFirst()){
+                Log.d(LOG_TAG, "Cursor subject empty");
+                return;
+            }
             entity.setId(rs.getLong(0));
             entity.setSubjectCode(Validate.repNullCursor(1, rs));
             entity.setSubjectName(Validate.repNullCursor(2, rs));

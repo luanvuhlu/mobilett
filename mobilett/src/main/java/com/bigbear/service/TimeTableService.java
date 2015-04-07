@@ -69,8 +69,8 @@ public class TimeTableService extends AbstractService {
             SubjectDao subjectDao=new SubjectDao(getContext(), dao.getDb());
             SubjectStudyClassDao subjectStudyClassDao=new SubjectStudyClassDao(getContext(), dao.getDb());
             TimeTable entity = dao.getEntityFromResponse(timeTableResponse);
-            long id=dao.save(entity);
             studentDao.save(entity.getStudent());
+            long id=dao.save(entity);
             Set<SubjectClass> subjectClasses=new HashSet<>();
             for(SubjectStudyClass subjectStudyClass:entity.getSubjectStudyClass()){
                 if(!subjectClasses.contains(subjectStudyClass.getSubjectClass())) {
