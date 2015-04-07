@@ -111,7 +111,7 @@ public class SubjectClassDao extends AbstractDao<SubjectClass> implements Subjec
                 Log.d(LOG_TAG, "Cursor subject class empty");
                 return;
             }
-            SubjectDao subjectDao=new SubjectDao(getContext());
+            SubjectDao subjectDao=new SubjectDao(getContext(), getDb() );
             entity.setId(rs.getLong(0));
             entity.setSubject(subjectDao.findById(rs.getLong(1)));
             entity.setTheoryClass(rs.getString(2));
@@ -119,7 +119,7 @@ public class SubjectClassDao extends AbstractDao<SubjectClass> implements Subjec
             entity.setStartDate(TimeCommon.parseDate(rs.getString(4)));
             entity.setEndDate(TimeCommon.parseDate(rs.getString(5)));
         } catch (Exception e) {
-            Log.d("SUBJECT_CLASS TABLE", "Set value error: " + e.getMessage());
+            Log.e(LOG_TAG, "Set value error: " + e.getMessage(), e);
         }
     }
     public SubjectClass getEntityFromResponse(TimeTableSubjectClassResponse res){

@@ -123,7 +123,7 @@ public class SubjectStudyClassDao extends AbstractDao<SubjectStudyClass> impleme
 
     @Override
     public void setValue(Cursor rs, SubjectStudyClass entity) {
-        try{
+//        try{
             if(rs ==null || !rs.moveToFirst()){
                 Log.d(LOG_TAG, "Cursor subject study class empty");
                 return;
@@ -136,9 +136,9 @@ public class SubjectStudyClassDao extends AbstractDao<SubjectStudyClass> impleme
             entity.setDayName(rs.getString(4));
             entity.setDayHours(rs.getString(5));
             entity.setDayLocations(rs.getString(6));
-        }catch(Exception e){
-            Log.e(LOG_TAG, "Seting value has some errors: "+e.getMessage(), e);
-        }
+//        }catch(Exception e){
+//            Log.e(LOG_TAG, "Seting value has some errors: "+e.getMessage(), e);
+//        }
     }
     public SubjectStudyClass getEntityFromResponse(TimeTableSubjectStudyDayResponse res){
         SubjectStudyClass entity=new SubjectStudyClass();
