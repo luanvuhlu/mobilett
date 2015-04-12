@@ -1,6 +1,8 @@
 package com.bigbear.fragment;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -100,7 +102,13 @@ public class ListTimeTableFragment extends Fragment {
      */
     private void setList(View rootView) {
         final ListView lv = (ListView) rootView.findViewById(R.id.listTT);
-        List<TimeTable> ls=service.findAll();
+        List<TimeTable> ls= null;
+        try {
+            ls = service.findAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+            ls=new ArrayList<>();
+        }
         TimeTable[] ettArrs = new TimeTable[ls.size()];
         ls.toArray(ettArrs);
         TimeTableAdapter timeTableAdapter = new TimeTableAdapter(getActivity(), ettArrs);
@@ -116,7 +124,7 @@ public class ListTimeTableFragment extends Fragment {
     }
 
     /**
-     * Sự kiện click và Thời khóa biểu trên list
+     * Sự kiện click vào Thời khóa biểu trên list
      *
      * @param parent
      * @param view

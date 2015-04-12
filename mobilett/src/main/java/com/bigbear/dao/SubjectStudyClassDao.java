@@ -49,15 +49,23 @@ public class SubjectStudyClassDao extends AbstractDao<SubjectStudyClass> impleme
 
     @Override
     public SubjectStudyClass getEntryById(long id) throws Exception {
-        SubjectStudyClass s = new SubjectStudyClass();
-        Cursor rs = getDb().query(getTableName(), getColumnNames(), getKeyIDName() + "=" + id,
-                null, null, null, null);
-
-        if (rs == null || rs.getCount() < 1 || !rs.moveToFirst()) {
-            throw new Exception("Cannot found object: " + getTableName() + ": " + id);
+        SubjectStudyClass s = null;
+        Cursor rs=null;
+        try {
+            rs = getDb().query(getTableName(), getColumnNames(), getKeyIDName() + "=" + id,
+                    null, null, null, null);
+            s = new SubjectStudyClass();
+            if (rs == null || rs.getCount() < 1 || !rs.moveToFirst()) {
+                throw new Exception("Cannot found object: " + getTableName() + ": " + id);
+            }
+            if(rs!=null && rs.moveToFirst()) {
+                setValue(rs, s);
+            }
+        }catch (Exception e){
+            throw e;
+        }finally {
+            if (rs != null) rs.close();
         }
-        setValue(rs, s);
-        if (rs != null) rs.close();
         return s;
     }
 
@@ -88,22 +96,30 @@ public class SubjectStudyClassDao extends AbstractDao<SubjectStudyClass> impleme
     }
 
     @Override
-    public Set<SubjectStudyClass> getFromTimeTable(TimeTable timeTable) {
+    public Set<SubjectStudyClass> getFromTimeTable(TimeTable timeTable) throws Exception {
         Set<SubjectStudyClass> etts=new HashSet<>();
-        Cursor cs=getDb().query(getTableName(), getColumnNames(), "TIMETABLE_ID = ?", new String[]{timeTable.getId() + ""}, null, null, null);
-        if(cs ==null){
-            Log.d(LOG_TAG, "No row !");
-            return etts;
-        }
-        if(cs.moveToFirst()){
-            do{
-                SubjectStudyClass ett=new SubjectStudyClass();
-                setValue(cs, ett);
-                ett.setTimeTable(timeTable);
-                etts.add(ett);
-            }while(cs.moveToNext());
-        }else{
-            Log.d(LOG_TAG, "Cursor empty !");
+        Cursor cs=null;
+        try {
+            cs = getDb().query(getTableName(), getColumnNames(), "TIMETABLE_ID = ?", new String[]{timeTable.getId() + ""}, null, null, null);
+            if (cs == null) {
+                Log.d(LOG_TAG, "No row !");
+                return etts;
+            }
+            Log.d(LOG_TAG, "Cursor count: " + cs.getCount());
+            if (cs.moveToFirst()) {
+                do {
+                    SubjectStudyClass ett = new SubjectStudyClass();
+                    setValue(cs, ett);
+                    ett.setTimeTable(timeTable);
+                    etts.add(ett);
+                } while (cs.moveToNext());
+            } else {
+                Log.d(LOG_TAG, "Cursor empty !");
+            }
+        }catch (Exception e){
+            throw e;
+        }finally {
+            if(cs!=null)cs.close();
         }
         return etts;
     }
@@ -122,9 +138,9 @@ public class SubjectStudyClassDao extends AbstractDao<SubjectStudyClass> impleme
     }
 
     @Override
-    public void setValue(Cursor rs, SubjectStudyClass entity) {
-//        try{
-            if(rs ==null || !rs.moveToFirst()){
+    public void setValue(Cursor rs, SubjectStudyClass entity) throws Exception {
+        try{
+            if(rs ==null){
                 Log.d(LOG_TAG, "Cursor subject study class empty");
                 return;
             }
@@ -136,9 +152,10 @@ public class SubjectStudyClassDao extends AbstractDao<SubjectStudyClass> impleme
             entity.setDayName(rs.getString(4));
             entity.setDayHours(rs.getString(5));
             entity.setDayLocations(rs.getString(6));
-//        }catch(Exception e){
-//            Log.e(LOG_TAG, "Seting value has some errors: "+e.getMessage(), e);
-//        }
+        }catch(Exception e){
+            Log.e(LOG_TAG, "Seting value has some errors: "+e.getMessage(), e);
+            throw  e;
+        }
     }
     public SubjectStudyClass getEntityFromResponse(TimeTableSubjectStudyDayResponse res){
         SubjectStudyClass entity=new SubjectStudyClass();

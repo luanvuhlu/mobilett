@@ -23,7 +23,7 @@ public class StudentService extends AbstractService {
     public long save(Student student){
         StudentDao dao=null;
         try {
-            new StudentDao(getContext());
+            dao=new StudentDao(getContext());
             dao.open(AbstractDao.WRITE_MODE);
             return dao.save(student);
         }catch (Exception e){

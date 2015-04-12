@@ -13,5 +13,5 @@ public interface SubjectClassDaoInterface<T> {
     public Cursor getAllEntries();
     public long save(T entity);
     public long delete(long id);
-    public T findById(long id);
+    public T findById(long id) throws Exception;
 }

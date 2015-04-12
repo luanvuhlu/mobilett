@@ -105,9 +105,9 @@ public class SubjectClassDao extends AbstractDao<SubjectClass> implements Subjec
     }
 
     @Override
-    public void setValue(Cursor rs, SubjectClass entity) {
+    public void setValue(Cursor rs, SubjectClass entity) throws Exception {
         try {
-            if(rs ==null || !rs.moveToFirst()){
+            if(rs ==null){
                 Log.d(LOG_TAG, "Cursor subject class empty");
                 return;
             }
@@ -120,6 +120,7 @@ public class SubjectClassDao extends AbstractDao<SubjectClass> implements Subjec
             entity.setEndDate(TimeCommon.parseDate(rs.getString(5)));
         } catch (Exception e) {
             Log.e(LOG_TAG, "Set value error: " + e.getMessage(), e);
+            throw e;
         }
     }
     public SubjectClass getEntityFromResponse(TimeTableSubjectClassResponse res){
@@ -133,10 +134,20 @@ public class SubjectClassDao extends AbstractDao<SubjectClass> implements Subjec
         return entity;
     }
     @Override
-    public SubjectClass findById(long id) {
-        Cursor rs = getDb().query(getTableName(), getColumnNames(), getKeyIDName()+"="+id, null, null, null, null);
-        SubjectClass entity=new SubjectClass();
-        setValue(rs, entity);
+    public SubjectClass findById(long id) throws Exception {
+        Cursor rs = null;
+        SubjectClass entity=null;
+        try {
+            rs=getDb().query(getTableName(), getColumnNames(), getKeyIDName() + "=" + id, null, null, null, null);
+            entity=new SubjectClass();
+            if(rs!=null && rs.moveToFirst()) {
+                setValue(rs, entity);
+            }
+        }catch (Exception e){
+            throw e;
+        }finally {
+            if(rs!=null)rs.close();
+        }
         return entity;
     }
 }

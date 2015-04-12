@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.bigbear.entity.Student;
 
+import java.text.ParseException;
+
 /**
  * Created by luanvu on 4/1/15.
  */
@@ -94,5 +96,5 @@ public abstract class AbstractDao<T> {
      * @param rs con trỏ từ database
      * @param entity cũ sau khi được set giá trị
      */
-    public abstract void setValue(Cursor rs, T entity);
+    public abstract void setValue(Cursor rs, T entity) throws Exception;
 }

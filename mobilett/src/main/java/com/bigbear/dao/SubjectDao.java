@@ -100,7 +100,7 @@ public class SubjectDao extends AbstractDao<Subject> implements SubjectDaoInterf
     @Override
     public void setValue(Cursor rs, Subject entity) {
         try{
-            if(rs ==null || !rs.moveToFirst()){
+            if(rs ==null){
                 Log.d(LOG_TAG, "Cursor subject empty");
                 return;
             }
@@ -112,6 +112,7 @@ public class SubjectDao extends AbstractDao<Subject> implements SubjectDaoInterf
             entity.setSubjectShortName(Validate.repNullCursor(5, rs));
         }catch(Exception e){
             Log.e(LOG_TAG, "Seting value has some errors: "+e.getMessage(), e);
+            throw e;
         }
     }
     public Subject getEntityFromResponse(TimeTableSubjectResponse res){
@@ -125,9 +126,19 @@ public class SubjectDao extends AbstractDao<Subject> implements SubjectDaoInterf
     }
     @Override
     public Subject findById(long id) {
-        Cursor rs = getDb().query(getTableName(), getColumnNames(), getKeyIDName()+"="+id, null, null, null, null);
-        Subject entity=new Subject();
-        setValue(rs, entity);
+        Cursor rs = null;
+        Subject entity=null;
+        try {
+            rs = getDb().query(getTableName(), getColumnNames(), getKeyIDName() + "=" + id, null, null, null, null);
+            entity = new Subject();
+            if(rs!=null && rs.moveToFirst()) {
+                setValue(rs, entity);
+            }
+        }catch (Exception e){
+            throw e;
+        }finally {
+            if(rs!=null)rs.close();
+        }
         return entity;
     }
 }

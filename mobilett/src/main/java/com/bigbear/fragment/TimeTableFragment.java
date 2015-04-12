@@ -39,8 +39,8 @@ import java.util.Date;
  */
 public class TimeTableFragment extends Fragment  implements OnItemClickListener  {
 	private static final String LOG_TAG="TIME_TABLE_FRAGMENT";
-    private static final String SUBJECT_CLASS_DAY_TAG = "SUBJECT_CLASS_DAY_TAG";
-    private static final String TIMETABLE_TAG = "TIMETABLE_TAG";
+    public static final String SUBJECT_CLASS_DAY_TAG = "SUBJECT_CLASS_DAY_TAG";
+    public static final String TIMETABLE_TAG = "TIMETABLE_TAG";
     private static TimeTable ett;
     private long currentTTId;
     private DayAdapter dayAdapter;
@@ -57,7 +57,7 @@ public class TimeTableFragment extends Fragment  implements OnItemClickListener 
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.timetable_detail_fragment, container, false);
 		final InfiniteViewPager viewPager = (InfiniteViewPager) rootView.findViewById(R.id.infinite_viewpager);
-        dayAdapter=new DayAdapter(TimeCommon.addDate(new Date(), -3)); // Lùi lại 3 ngày
+        dayAdapter=new DayAdapter(TimeCommon.addDate(new Date(), 0)); // Lùi lại 0 ngày
         viewPager.setAdapter(dayAdapter);
         viewPager.setPageMargin(3);
         viewPager.setOnInfinitePageChangeListener(new InfiniteViewPager.OnInfinitePageChangeListener() {
@@ -83,8 +83,8 @@ public class TimeTableFragment extends Fragment  implements OnItemClickListener 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TimeTableDayitem item=(TimeTableDayitem)parent.getAdapter().getItem(position);
-        Log.i(LOG_TAG, "Item day id: "+item.getDayId());
-        if(item==null || item.getType()!=TimeTableDayitem.SUB_NAME || Text.isEmpty(item.getDayId())) return;
+        if(item==null || item.getType()!=TimeTableDayitem.SUB_NAME || Text.isEmpty(item.getDayId()))
+            return;
         try{
             long idDay=Long.parseLong(item.getDayId());
             FragmentManager fragmentManager = getActivity()

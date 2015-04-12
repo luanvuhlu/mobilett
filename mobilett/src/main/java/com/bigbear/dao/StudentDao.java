@@ -100,7 +100,7 @@ public class StudentDao extends AbstractDao<Student> implements StudentDaoInterf
     @Override
     public void setValue(Cursor rs, Student entity) {
         try {
-            if(rs ==null || !rs.moveToFirst()){
+            if(rs ==null){
                 Log.d(LOG_TAG, "Cursor student empty");
                 return;
             }
@@ -123,10 +123,20 @@ public class StudentDao extends AbstractDao<Student> implements StudentDaoInterf
     }
     @Override
     public Student findById(long id) {
-        Cursor rs = getDb().query(getTableName(), getColumnNames(), getKeyIDName()+"="+id, null, null, null, null);
-        Log.d(LOG_TAG, "ID: "+id+" - Cursor: "+rs.toString()+" - Count: "+rs.getCount());
-        Student entity=new Student();
-        setValue(rs, entity);
+        Cursor rs = null;
+        Student entity=null;
+        try {
+            rs=getDb().query(getTableName(), getColumnNames(), getKeyIDName() + "=" + id, null, null, null, null);
+            Log.d(LOG_TAG, "ID: " + id + " - Cursor: " + rs.toString() + " - Count: " + rs.getCount());
+             entity = new Student();
+            if(rs!=null && rs.moveToFirst()) {
+                setValue(rs, entity);
+            }
+        }catch (Exception e){
+            throw e;
+        }finally {
+            if(rs!=null)rs.close();
+        }
         return entity;
     }
 }

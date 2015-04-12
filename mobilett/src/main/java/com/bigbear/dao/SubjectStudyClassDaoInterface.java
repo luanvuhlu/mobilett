@@ -15,5 +15,5 @@ public interface SubjectStudyClassDaoInterface<T> {
     public Cursor getAllEntries();
     public long save(T entity);
     public long delete(long id);
-    public Set<T> getFromTimeTable(TimeTable timeTable);
+    public Set<T> getFromTimeTable(TimeTable timeTable) throws Exception;
 }

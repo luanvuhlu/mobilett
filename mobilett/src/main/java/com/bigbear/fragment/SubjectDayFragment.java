@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bigbear.common.TimeCommon;
+import com.bigbear.dao.SubjectStudyClassDao;
 import com.bigbear.mobilett.MainActivity;
 import com.bigbear.mobilett.R;
 
@@ -38,10 +39,14 @@ public class SubjectDayFragment extends Fragment   {
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		try{
-			if(getArguments()==null){
+            Bundle bundle = getArguments();
+			if(bundle==null){
 				return;
 			}
-            Log.i(LOG_TAG, getArguments().getString(TimeTableFragment.SELECTED_DATE));
+            Log.i(LOG_TAG, bundle.getString(TimeTableFragment.SELECTED_DATE));
+            Log.i(LOG_TAG, bundle.getString(TimeTableFragment.SUBJECT_CLASS_DAY_TAG));
+            Log.i(LOG_TAG, bundle.getString(TimeTableFragment.TIMETABLE_TAG));
+
 		}catch(NullPointerException e){
 			Log.e(LOG_TAG, e.getMessage(), e);
 			// TODO
