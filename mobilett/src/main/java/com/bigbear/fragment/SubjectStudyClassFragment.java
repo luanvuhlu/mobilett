@@ -1,0 +1,85 @@
+package com.bigbear.fragment;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.bigbear.common.TimeCommon;
+import com.bigbear.entity.SubjectStudyClass;
+import com.bigbear.mobilett.MainActivity;
+import com.bigbear.mobilett.R;
+import com.bigbear.service.SubjectStudyClassService;
+
+import java.util.Date;
+
+/**
+ * Hiển thị thông tin chi tiết về ngày học và môn học
+ * @author luanvu
+ */
+public class SubjectStudyClassFragment extends Fragment   {
+	private static final String LOG_TAG="SUBJECT_DAY_FRAGMENT";
+	private Date currentDateSelected;
+    private SubjectStudyClassService service;
+    private SubjectStudyClass entity;
+	public SubjectStudyClassFragment() {
+        super();
+    }
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.subject_study_class_fragment, container,
+				false);
+        TextView subjectName=(TextView) rootView.findViewById(R.id.subjectName);
+        TextView subjectClass=(TextView) rootView.findViewById(R.id.className);
+        TextView subjectStudyDetail=(TextView) rootView.findViewById(R.id.subjectDetail);
+        if(entity==null){
+            Log.d(LOG_TAG, "Entity is null");
+        }else {
+            subjectClass.setText(entity.getSubjectClass().getTheoryClass() + "." + entity.getSubjectClass().getSeminarClass());
+            subjectName.setText(entity.getSubjectClass().getSubject().getSubjectName());
+            subjectStudyDetail.setText("Học tiết "+entity.getDayHours()+" tại "+entity.getDayLocations());
+        }
+
+		return rootView;
+	}
+	
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		try{
+            service=new SubjectStudyClassService(getActivity());
+            Bundle bundle = getArguments();
+			if(bundle==null){
+				return;
+			}
+            currentDateSelected=TimeCommon.parseDate(bundle.getString(TimeTableFragment.SELECTED_DATE), TimeCommon.FORMAT_DDMMYYYY);
+            long ttId=bundle.getLong(TimeTableFragment.TIMETABLE_TAG);
+            long dayId=bundle.getLong(TimeTableFragment.SUBJECT_CLASS_DAY_TAG);
+            if(ttId==0 || dayId ==0){
+                Log.e(LOG_TAG, "Timetable id or Day Id is zero");
+                throw new Exception();
+            }
+            entity=service.getSubjectStudyClassDetailByDay(ttId, dayId, currentDateSelected);
+		}catch (Exception e) {
+            Log.e(LOG_TAG, e.getMessage(), e);
+            // TODO
+//			((MainActivity)getActivity()).onNavigationDrawerItemSelected(MainActivity.NAVIGATION_DRAWER_TIMETABLE_LIST);
+			Log.e(LOG_TAG, e.getMessage(), e);
+		}
+	}
+	private void setDateTitle(){
+		try {
+			MainActivity.setActionBar(TimeCommon.formatDate(currentDateSelected, TimeCommon.FORMAT_EDDMMYYYY), getActivity());
+		} catch (Exception e) {
+			Log.e(LOG_TAG, "Format date fail", e);
+			MainActivity.setActionBar("Ngày nào năm đó", getActivity());
+		}
+	}
+	
+}

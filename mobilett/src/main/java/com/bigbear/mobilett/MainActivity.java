@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -17,12 +16,9 @@ import android.view.ViewGroup;
 import com.bigbear.common.TimeCommon;
 import com.bigbear.fragment.ListTimeTableFragment;
 import com.bigbear.fragment.NavigationDrawerFragment;
-import com.bigbear.fragment.SubjectDayFragment;
+import com.bigbear.fragment.SubjectStudyClassFragment;
 import com.bigbear.fragment.TimeTableFragment;
-import com.bigbear.service.TimeTableService;
 import com.bigbear.service.UtilService;
-
-import java.util.Locale;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 
@@ -30,7 +26,7 @@ public class MainActivity extends ActionBarActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
 	@SuppressWarnings("unused")
 	private static final String LOG_TAG = "Main";
-	public static final int NAVIGATION_DRAWER_SUBJECT_DAY_DETAIL=-1;
+	public static final int NAVIGATION_DRAWER_SUBJECT_STUDY_CLASS_DETAIL =-1;
 	public static final int NAVIGATION_DRAWER_TIMETABLE=0;
 	public static final int NAVIGATION_DRAWER_TIMETABLE_LIST=1;
 	public static final String ARG_SECTION_NUMBER = "section_number";
@@ -146,8 +142,8 @@ public class MainActivity extends ActionBarActivity implements
 			case NAVIGATION_DRAWER_TIMETABLE:
 				fragment=new TimeTableFragment();
 				break;
-			case NAVIGATION_DRAWER_SUBJECT_DAY_DETAIL:
-                fragment=new SubjectDayFragment();
+			case NAVIGATION_DRAWER_SUBJECT_STUDY_CLASS_DETAIL:
+                fragment=new SubjectStudyClassFragment();
                 break;
 			default:
 				fragment=new TimeTableFragment();

@@ -3,6 +3,7 @@ package com.bigbear.dao;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.appspot.hlutimetable.timetable.model.TimeTableSubjectClassResponse;
@@ -28,6 +29,10 @@ public class TimeTableDao extends AbstractDao<TimeTable> implements TimeTableDao
 
     public TimeTableDao(Context context) {
         super(context);
+    }
+
+    public TimeTableDao(Context context, SQLiteDatabase db) {
+        super(context, db);
     }
 
     @Override

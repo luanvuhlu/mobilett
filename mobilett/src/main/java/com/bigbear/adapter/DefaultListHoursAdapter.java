@@ -44,10 +44,12 @@ public class DefaultListHoursAdapter extends AsymmetricGridViewAdapter<TimeTable
         v.setGravity(Gravity.CENTER);
         v.setBackgroundColor(context.getResources().getColor(R.color.white));
         if(item.isStudy() && !item.isSeminar()){
+//            v.setTextAppearance(context, R.style.seminar_hours);
             v.setBackgroundColor(context.getResources().getColor(R.color.light_green));
             v.setTextColor(context.getResources().getColor(R.color.white));
         }
         if(item.isSeminar()){
+//            v.setTextAppearance(context, R.style.theory_hours);
             v.setBackgroundColor(context.getResources().getColor(R.color.less_orange));
             v.setTextColor(context.getResources().getColor(R.color.white));
         }
@@ -64,4 +66,5 @@ public class DefaultListHoursAdapter extends AsymmetricGridViewAdapter<TimeTable
         TimeTableDayitem item = getItem(position);
         return item.getType()==TimeTableDayitem.SUB_NAME && !Text.isEmpty(item.getText());
     }
+
 }

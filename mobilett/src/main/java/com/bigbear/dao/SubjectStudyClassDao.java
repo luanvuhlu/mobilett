@@ -92,7 +92,6 @@ public class SubjectStudyClassDao extends AbstractDao<SubjectStudyClass> impleme
     @Override
     public long delete(long id) {
             return getDb().delete(getTableName(), getKeyIDName() + "=" + id, null);
-
     }
 
     @Override
@@ -109,8 +108,8 @@ public class SubjectStudyClassDao extends AbstractDao<SubjectStudyClass> impleme
             if (cs.moveToFirst()) {
                 do {
                     SubjectStudyClass ett = new SubjectStudyClass();
-                    setValue(cs, ett);
                     ett.setTimeTable(timeTable);
+                    setValue(cs, ett);
                     etts.add(ett);
                 } while (cs.moveToNext());
             } else {
@@ -122,6 +121,25 @@ public class SubjectStudyClassDao extends AbstractDao<SubjectStudyClass> impleme
             if(cs!=null)cs.close();
         }
         return etts;
+    }
+
+    @Override
+    public SubjectStudyClass getEntry(long ttId, long dayId) throws Exception {
+        Cursor cs=null;
+        SubjectStudyClass ett=null;
+        try {
+            cs = getDb().query(getTableName(), getColumnNames(), "TIMETABLE_ID = ? AND SUBJECT_CLASS_ID= ?", new String[]{ttId + "", dayId + ""}, null, null, null);
+            if(cs ==null || cs.getCount() < 1 || !cs.moveToFirst()){
+                Log.d(LOG_TAG, "Cursor count: " + cs.getCount());
+                return ett;
+            }
+            ett = new SubjectStudyClass();
+            setValue(cs, ett);
+        }catch (Exception e){
+            Log.e(LOG_TAG, "get Entry error: "+e.getMessage(), e);
+            throw  e;
+        }
+        return ett;
     }
 
     @Override
@@ -146,14 +164,17 @@ public class SubjectStudyClassDao extends AbstractDao<SubjectStudyClass> impleme
             }
             SubjectClassDao subjectClassDao=new SubjectClassDao(getContext(), getDb());
             entity.setId(rs.getLong(0));
-            entity.setTimeTable(new TimeTable(rs.getLong(1)));
+            if(entity.getTimeTable()==null) {
+                TimeTableDao timeTableDao=new TimeTableDao(getContext(), getDb());
+                entity.setTimeTable(timeTableDao.getEntryById(rs.getLong(1)));
+            }
             entity.setSubjectClass(subjectClassDao.findById(rs.getLong(2)));
             entity.setClassType(rs.getString(3));
             entity.setDayName(rs.getString(4));
             entity.setDayHours(rs.getString(5));
             entity.setDayLocations(rs.getString(6));
         }catch(Exception e){
-            Log.e(LOG_TAG, "Seting value has some errors: "+e.getMessage(), e);
+            Log.e(LOG_TAG, "Set value has some errors: "+e.getMessage(), e);
             throw  e;
         }
     }

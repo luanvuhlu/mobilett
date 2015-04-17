@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+
+    <LinearLayout
+        style="@style/center_text"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/less_orange"
+        android:layout_weight="0.13">
+        <TextView
+            android:id="@+id/subjectName"
+            style="@style/subject_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Luật kinh doanh bảo hiểm" />
+        </LinearLayout>
+
+    <LinearLayout
+        style="@style/center_text"
+        android:id="@+id/subjectClass"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/less_orange"
+        android:layout_weight="0.06">
+
+    <TextView
+        android:id="@+id/className"
+        style="@style/left_margin_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="N02.TL3"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+    <LinearLayout
+        style="@style/center_text"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray"
+        android:layout_weight="0.06">
+    <TextView
+        android:id="@+id/subjectDetail"
+        style="@style/left_margin_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray"
+        android:text="Học tiết 1,2 tại C102"
+        />
+    </LinearLayout>
+</LinearLayout>
