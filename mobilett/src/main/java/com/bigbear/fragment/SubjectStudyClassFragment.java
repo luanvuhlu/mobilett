@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bigbear.common.Text;
 import com.bigbear.common.TimeCommon;
 import com.bigbear.entity.SubjectStudyClass;
 import com.bigbear.mobilett.MainActivity;
@@ -38,14 +39,24 @@ public class SubjectStudyClassFragment extends Fragment   {
         TextView subjectName=(TextView) rootView.findViewById(R.id.subjectName);
         TextView subjectClass=(TextView) rootView.findViewById(R.id.className);
         TextView subjectStudyDetail=(TextView) rootView.findViewById(R.id.subjectDetail);
+        String subjectNameStr="";
+        String subjectClassStr="";
+        String subjectStudyDetailStr="";
         if(entity==null){
+            // TODO
             Log.d(LOG_TAG, "Entity is null");
         }else {
-            subjectClass.setText(entity.getSubjectClass().getTheoryClass() + "." + entity.getSubjectClass().getSeminarClass());
-            subjectName.setText(entity.getSubjectClass().getSubject().getSubjectName());
-            subjectStudyDetail.setText("Học tiết "+entity.getDayHours()+" tại "+entity.getDayLocations());
+            if(Text.isEmpty(entity.getSubjectClass().getSeminarClass())) {
+                subjectNameStr = entity.getSubjectClass().getTheoryClass();
+            }else{
+                subjectNameStr = entity.getSubjectClass().getTheoryClass() + "." + entity.getSubjectClass().getSeminarClass();
+            }
+            subjectClassStr=entity.getSubjectClass().getSubject().getSubjectName();
+            subjectStudyDetailStr="Học tiết "+entity.getDayHours()+" tại "+entity.getDayLocations();
         }
-
+        subjectClass.setText(subjectNameStr);
+        subjectName.setText(subjectClassStr);
+        subjectStudyDetail.setText(subjectStudyDetailStr);
 		return rootView;
 	}
 	

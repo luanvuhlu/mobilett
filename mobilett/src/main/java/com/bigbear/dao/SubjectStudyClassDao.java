@@ -128,7 +128,7 @@ public class SubjectStudyClassDao extends AbstractDao<SubjectStudyClass> impleme
         Cursor cs=null;
         SubjectStudyClass ett=null;
         try {
-            cs = getDb().query(getTableName(), getColumnNames(), "TIMETABLE_ID = ? AND SUBJECT_CLASS_ID= ?", new String[]{ttId + "", dayId + ""}, null, null, null);
+            cs = getDb().query(getTableName(), getColumnNames(), "TIMETABLE_ID = ? AND ID= ?", new String[]{ttId + "", dayId + ""}, null, null, null);
             if(cs ==null || cs.getCount() < 1 || !cs.moveToFirst()){
                 Log.d(LOG_TAG, "Cursor count: " + cs.getCount());
                 return ett;
