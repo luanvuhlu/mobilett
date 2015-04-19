@@ -18,6 +18,7 @@ import android.widget.ListAdapter;
 import com.bigbear.adapter.DefaultListHoursAdapter;
 import com.bigbear.adapter.ListTimeTableDay;
 import com.bigbear.adapter.TimeTableDayitem;
+import com.bigbear.common.SharedPreferenceUtil;
 import com.bigbear.common.Text;
 import com.bigbear.common.TimeCommon;
 import com.bigbear.entity.TimeTable;
@@ -30,6 +31,7 @@ import com.felipecsl.asymmetricgridview.library.widget.AsymmetricGridViewAdapter
 import com.thehayro.view.InfinitePagerAdapter;
 import com.thehayro.view.InfiniteViewPager;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -48,6 +50,7 @@ public class TimeTableFragment extends Fragment implements OnItemClickListener {
     public static final String SUBJECT_CLASS_STUDY_ID = "SUBJECT_CLASS_STUDY_ID";
     public static final String SELECTED_DATE = "SELECTED_DATE";
     private TimeTableService service;
+    private Date currnetSelected;
 
     public TimeTableFragment() {
         super();
@@ -55,11 +58,36 @@ public class TimeTableFragment extends Fragment implements OnItemClickListener {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        try {
+            outState.putString(SELECTED_DATE, TimeCommon.formatDate(currnetSelected, TimeCommon.FORMAT_DDMMYYYY));
+            super.onSaveInstanceState(outState);
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Format date error: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if(savedInstanceState!=null){
+            try {
+                currnetSelected=TimeCommon.parseDate(savedInstanceState.getString(SELECTED_DATE), TimeCommon.FORMAT_DDMMYYYY);
+            } catch (ParseException e) {
+                Log.e(LOG_TAG, "Parse date error: "+e.getMessage(), e);
+                currnetSelected=new Date();
+            }
+        }else {
+            try {
+                currnetSelected = SharedPreferenceUtil.getSelectedDate(getActivity());
+            } catch (Exception e) {
+                Log.e(LOG_TAG, "Share preference empty "+e.getMessage(), e);
+                currnetSelected=new Date();
+            }
+        }
         View rootView = inflater.inflate(R.layout.timetable_detail_fragment, container, false);
         final InfiniteViewPager viewPager = (InfiniteViewPager) rootView.findViewById(R.id.infinite_viewpager);
-        dayAdapter = new DayAdapter(TimeCommon.addDate(new Date(), 0)); // Lùi lại 0 ngày
+        dayAdapter = new DayAdapter(currnetSelected); // Lùi lại 0 ngày
         viewPager.setAdapter(dayAdapter);
         viewPager.setPageMargin(3);
         viewPager.setOnInfinitePageChangeListener(new InfiniteViewPager.OnInfinitePageChangeListener() {
@@ -71,6 +99,12 @@ public class TimeTableFragment extends Fragment implements OnItemClickListener {
             public void onPageSelected(final Object indicator) {
                 if (indicator instanceof Date && indicator != null) {
                     setDateTitle((Date) indicator);
+                }
+                currnetSelected= (Date) indicator;
+                try {
+                    SharedPreferenceUtil.putSelectedDate(currnetSelected, getActivity());
+                } catch (Exception e) {
+                    Log.e(LOG_TAG, "Save current date error: "+e.getMessage(), e);
                 }
             }
 
@@ -107,9 +141,9 @@ public class TimeTableFragment extends Fragment implements OnItemClickListener {
                     .addToBackStack(null)
                     .commit();
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            Log.e(LOG_TAG, "Null cai gi day: "+e.getMessage(), e);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(LOG_TAG, "Exception: " + e.getMessage(), e);
         }
     }
 
@@ -195,12 +229,12 @@ public class TimeTableFragment extends Fragment implements OnItemClickListener {
 
         @Override
         public Date getNextIndicator() {
-            return TimeCommon.addDate(getCurrentIndicator(), 1);
+             return TimeCommon.changeDate(getCurrentIndicator(), 1);
         }
 
         @Override
         public Date getPreviousIndicator() {
-            return TimeCommon.addDate(getCurrentIndicator(), -1);
+            return  TimeCommon.changeDate(getCurrentIndicator(), -1);
         }
 
         public Date getSelectedDate() {

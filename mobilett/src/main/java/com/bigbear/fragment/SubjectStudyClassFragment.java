@@ -49,7 +49,7 @@ public class SubjectStudyClassFragment extends Fragment   {
             if(Text.isEmpty(entity.getSubjectClass().getSeminarClass())) {
                 subjectNameStr = entity.getSubjectClass().getTheoryClass();
             }else{
-                subjectNameStr = entity.getSubjectClass().getTheoryClass() + "." + entity.getSubjectClass().getSeminarClass();
+                subjectNameStr = entity.getSubjectClass().getSeminarClass();
             }
             subjectClassStr=entity.getSubjectClass().getSubject().getSubjectName();
             subjectStudyDetailStr="Học tiết "+entity.getDayHours()+" tại "+entity.getDayLocations();

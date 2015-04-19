@@ -1,7 +1,6 @@
 package com.bigbear.fragment;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,16 +17,19 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.appspot.hlutimetable.timetable.Timetable;
 import com.appspot.hlutimetable.timetable.Timetable.TimetableOperations.GetTimeTable;
 import com.appspot.hlutimetable.timetable.model.TimeTableTimeTableResponse;
 import com.bigbear.adapter.TimeTableAdapter;
+import com.bigbear.common.SharedPreferenceUtil;
 import com.bigbear.entity.TimeTable;
 import com.bigbear.mobilett.AppConstants;
 import com.bigbear.mobilett.MainActivity;
 import com.bigbear.mobilett.MainActivity.PlaceholderFragment;
 import com.bigbear.mobilett.R;
+import com.bigbear.mobilett.ScannerActivity;
 import com.bigbear.service.TimeTableService;
 import com.gc.materialdesign.views.ButtonFloat;
 
@@ -39,6 +41,8 @@ public class ListTimeTableFragment extends Fragment {
     private static final String LOG_TAG = "LIST_TIME_TABLE";
     public static final String TIMETABLE_ID_TAG = "TIMETABLE_ID_TAG";
     private TimeTableService service;
+    private ListView lv;
+    private TimeTableAdapter timeTableAdapter ;
     /**
      * Quét QR Code
      * <br />Bắt đầu từ {@link #scanQr()}
@@ -56,7 +60,14 @@ public class ListTimeTableFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.list_timetable_fragment,
                 container, false);
-        setList(rootView);
+        lv = (ListView) rootView.findViewById(R.id.listTT);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                timeTableClicked(parent, view, position, id);
+            }
+        });
+        setListItems();
         addBtn = (ButtonFloat) rootView.findViewById(R.id.add);
         addBtn.setOnClickListener(new OnClickListener() {
 
@@ -71,22 +82,19 @@ public class ListTimeTableFragment extends Fragment {
      * Hiện ra giao diện để quét QR Code
      */
     private void scanQr() {
-        displayTimeTableFromRandomKey("8XHOHFU5OBXXSE1IEV0MIDOMNNI3QK");
-//		Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-//         intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-//         startActivityForResult(intent,QR_CODE_SCAN);
+        Intent intent=new Intent(getActivity(), ScannerActivity.class);
+        startActivityForResult(intent, QR_CODE_SCAN);
     }
 
     @Override
     public void onActivityResult(int arg0, int arg1, Intent arg2) {
         if (arg0 == QR_CODE_SCAN) {
-            if (arg1 == Activity.RESULT_OK) {
-
-                String contents = arg2.getStringExtra("SCAN_RESULT");
+            if (arg1 == Activity.RESULT_OK && arg2.getExtras() !=null) {
+                String contents = arg2.getStringExtra(ScannerActivity.SCAN_RESULT_KEY);
                 @SuppressWarnings("unused")
                 String format = arg2.getStringExtra("SCAN_RESULT_FORMAT");
-                Log.i("App", "Scan successful");
-                Log.d("QR Code", contents);
+                Log.i(LOG_TAG, "Scan successful");
+                Log.d(LOG_TAG, contents);
                 displayTimeTableFromRandomKey(contents);
             } else if (arg1 == Activity.RESULT_CANCELED) {
                 Log.i("App", "Scan unsuccessful");
@@ -98,10 +106,9 @@ public class ListTimeTableFragment extends Fragment {
     /**
      * Khởi tạo list Thời khóa biểu
      *
-     * @param rootView
      */
-    private void setList(View rootView) {
-        final ListView lv = (ListView) rootView.findViewById(R.id.listTT);
+    private void setListItems() {
+
         List<TimeTable> ls= null;
         try {
             ls = service.findAll();
@@ -111,16 +118,8 @@ public class ListTimeTableFragment extends Fragment {
         }
         TimeTable[] ettArrs = new TimeTable[ls.size()];
         ls.toArray(ettArrs);
-        TimeTableAdapter timeTableAdapter = new TimeTableAdapter(getActivity(), ettArrs);
-
+        timeTableAdapter = new TimeTableAdapter(getActivity(), ettArrs);
         lv.setAdapter(timeTableAdapter);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                timeTableClicked(parent, view, position, id);
-            }
-        });
-
     }
 
     /**
@@ -135,6 +134,11 @@ public class ListTimeTableFragment extends Fragment {
                                   int position, long id) {
         final TimeTable item = (TimeTable) parent
                 .getItemAtPosition(position);
+        try {
+            SharedPreferenceUtil.putActiveTimeTable(item.getId(), getActivity());
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Exception save timetable id: "+e.getMessage(), e);
+        }
         FragmentManager fragmentManager = getActivity()
                 .getSupportFragmentManager();
         Fragment fragment = PlaceholderFragment
@@ -171,12 +175,19 @@ public class ListTimeTableFragment extends Fragment {
 
             @Override
             protected void onPostExecute(TimeTableTimeTableResponse timeTableResponse) {
-                if (timeTableResponse != null) {
-                    saveDb(timeTableResponse);
-                    ((MainActivity) getActivity()).onNavigationDrawerItemSelected(MainActivity.NAVIGATION_DRAWER_TIMETABLE_LIST);
+                boolean success=false;
+                if (timeTableResponse != null && saveDb(timeTableResponse) > 0) {
+                    success=true;
+                    setListItems();
+                    // TODO
+//                    lv.invalidateViews();
+//                    ((MainActivity) getActivity()).onNavigationDrawerItemSelected(MainActivity.NAVIGATION_DRAWER_TIMETABLE_LIST);
                 } else {
+                    success=false;
                     Log.e(LOG_TAG, "No timetable were returned by the API.");
                 }
+                showMessge(success?"Success":"Fail");
+                addBtn.setEnabled(true);
             }
         };
         addBtn.setEnabled(false);
@@ -188,13 +199,14 @@ public class ListTimeTableFragment extends Fragment {
      *
      * @param timeTableResponses
      */
-    private void saveDb(TimeTableTimeTableResponse... timeTableResponses) {
+    private long saveDb(TimeTableTimeTableResponse... timeTableResponses) {
         if (timeTableResponses == null || timeTableResponses.length != 1) {
             Log.d(LOG_TAG, "TimeTable was not present");
-            return;
+            return 0;
         }
         long id = service.save(timeTableResponses[0]);
         Log.i(LOG_TAG, "Insert db ID: " + id);
+        return id;
     }
 
     @Override
@@ -207,5 +219,8 @@ public class ListTimeTableFragment extends Fragment {
         } catch (NullPointerException e) {
 
         }
+    }
+    private void showMessge(String str){
+        Toast.makeText(getActivity(),  str, Toast.LENGTH_LONG).show();
     }
 }

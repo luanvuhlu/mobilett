@@ -141,6 +141,10 @@ public class TimeCommon {
     	cal.set(Calendar.DATE, cal.get(Calendar.DATE)+day);
     	return cal.getTime();
     }
+    public static Date changeDate(Date d, int day){
+        d=addDate(d, day);
+        return d;
+    }
 
     /**
      * Trả về ngày trong tuần của ngày hiện tại
