@@ -76,4 +76,7 @@ dependencies {
     compile files('libs/timetable-v1-1.19.0-SNAPSHOT.jar')
 //    compile files('libs/zbar.jar')
     compile 'com.nineoldandroids:library:2.4.0'
+    compile 'me.dm7.barcodescanner:zxing:1.7'
+    compile 'com.android.support:cardview-v7:21.0.+'
+    compile 'com.android.support:recyclerview-v7:21.0.+'
 }

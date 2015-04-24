@@ -10,6 +10,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.appspot.hlutimetable.timetable.Timetable;
@@ -41,8 +44,10 @@ public class ListTimeTableFragment extends Fragment {
     private static final String LOG_TAG = "LIST_TIME_TABLE";
     public static final String TIMETABLE_ID_TAG = "TIMETABLE_ID_TAG";
     private TimeTableService service;
-    private ListView lv;
-    private TimeTableAdapter timeTableAdapter ;
+    private RecyclerView lv;
+    private RecyclerView.Adapter timeTableAdapter ;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private TimeTable[] ettArrs;
     /**
      * Quét QR Code
      * <br />Bắt đầu từ {@link #scanQr()}
@@ -60,13 +65,9 @@ public class ListTimeTableFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.list_timetable_fragment,
                 container, false);
-        lv = (ListView) rootView.findViewById(R.id.listTT);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                timeTableClicked(parent, view, position, id);
-            }
-        });
+        lv = (RecyclerView ) rootView.findViewById(R.id.listTT);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        lv.setLayoutManager(mLayoutManager);
         setListItems();
         addBtn = (ButtonFloat) rootView.findViewById(R.id.add);
         addBtn.setOnClickListener(new OnClickListener() {
@@ -116,41 +117,10 @@ public class ListTimeTableFragment extends Fragment {
             e.printStackTrace();
             ls=new ArrayList<>();
         }
-        TimeTable[] ettArrs = new TimeTable[ls.size()];
+        ettArrs = new TimeTable[ls.size()];
         ls.toArray(ettArrs);
         timeTableAdapter = new TimeTableAdapter(getActivity(), ettArrs);
         lv.setAdapter(timeTableAdapter);
-    }
-
-    /**
-     * Sự kiện click vào Thời khóa biểu trên list
-     *
-     * @param parent
-     * @param view
-     * @param position
-     * @param id
-     */
-    private void timeTableClicked(AdapterView<?> parent, View view,
-                                  int position, long id) {
-        final TimeTable item = (TimeTable) parent
-                .getItemAtPosition(position);
-        try {
-            SharedPreferenceUtil.putActiveTimeTable(item.getId(), getActivity());
-        } catch (Exception e) {
-            Log.e(LOG_TAG, "Exception save timetable id: "+e.getMessage(), e);
-        }
-        FragmentManager fragmentManager = getActivity()
-                .getSupportFragmentManager();
-        Fragment fragment = PlaceholderFragment
-                .newInstance(MainActivity.NAVIGATION_DRAWER_TIMETABLE);
-        Bundle bundle = new Bundle();
-        bundle.putLong(TIMETABLE_ID_TAG, item.getId());
-        bundle.putInt(MainActivity.ARG_SECTION_NUMBER,
-                MainActivity.NAVIGATION_DRAWER_TIMETABLE);
-        fragment.setArguments(bundle);
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
-                .commit();
     }
 
     /**
