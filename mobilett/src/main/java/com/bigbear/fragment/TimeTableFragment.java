@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -208,7 +209,7 @@ public class TimeTableFragment extends Fragment implements OnItemClickListener {
         @Override
         public ViewGroup instantiateItem(final Date indicator) {
             Log.d("InfiniteViewPager", "instantiating page " + indicator);
-            final LinearLayout layout = (LinearLayout) ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+            final CardView layout = (CardView) ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE))
                     .inflate(R.layout.timetable_day_item, null);
 
             layout.setTag(indicator);
