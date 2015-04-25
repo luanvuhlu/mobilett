@@ -27,5 +27,12 @@
     <string name="title_activity_time_table_view">TimeTableViewActivity</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_hours_detail">HoursDetailActivity</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="pref_title_display_name">Luan</string>
+    <string name="pref_title_social_recommendations">khong biet</string>
+    <string name="pref_description_social_recommendations">2345234543</string>
+    <string name="pref_default_display_name">53454</string>
+    <string name="pref_title_add_friends_to_messages">3454</string>
 
 </resources>

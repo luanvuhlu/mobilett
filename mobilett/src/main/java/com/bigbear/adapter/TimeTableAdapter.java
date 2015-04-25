@@ -3,18 +3,12 @@ package com.bigbear.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bigbear.common.SharedPreferenceUtil;
 import com.bigbear.common.TimeCommon;
@@ -22,6 +16,7 @@ import com.bigbear.entity.TimeTable;
 import com.bigbear.fragment.ListTimeTableFragment;
 import com.bigbear.mobilett.MainActivity;
 import com.bigbear.mobilett.R;
+import com.bigbear.mobilett.TimeTableActivity;
 
 /**
  * Adapter cho danh sách Thời khóa biểu
@@ -95,7 +90,12 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.View
             } catch (Exception e) {
                 Log.e(LOG_TAG, "Exception save timetable id: "+e.getMessage(), e);
             }
-            FragmentManager fragmentManager = ((MainActivity)v.getContext()).getSupportFragmentManager();
+            Intent intent=new Intent(v.getContext(), TimeTableActivity.class);
+            intent.putExtra(ListTimeTableFragment.TIMETABLE_ID_TAG, timeTalbe.getId());
+            intent.putExtra(MainActivity.ARG_SECTION_NUMBER,
+                    MainActivity.NAVIGATION_DRAWER_TIMETABLE);
+            v.getContext().startActivity(intent);
+            /*FragmentManager fragmentManager = ((MainActivity)v.getContext()).getSupportFragmentManager();
             Fragment fragment = MainActivity.PlaceholderFragment
                     .newInstance(MainActivity.NAVIGATION_DRAWER_TIMETABLE);
             Bundle bundle = new Bundle();
@@ -105,7 +105,7 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.View
             fragment.setArguments(bundle);
             fragmentManager.beginTransaction()
                     .replace(R.id.container, fragment)
-                    .commit();
+                    .commit();*/
         }
     }
 

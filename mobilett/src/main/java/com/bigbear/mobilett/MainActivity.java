@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,13 +16,11 @@ import android.view.ViewGroup;
 import com.bigbear.common.TimeCommon;
 import com.bigbear.fragment.ListTimeTableFragment;
 import com.bigbear.fragment.NavigationDrawerFragment;
-import com.bigbear.fragment.SubjectStudyClassFragment;
-import com.bigbear.fragment.TimeTableFragment;
 import com.bigbear.service.UtilService;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 
-public class MainActivity extends ActionBarActivity implements
+public class MainActivity extends AppCompatActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
 	@SuppressWarnings("unused")
 	private static final String LOG_TAG = "Main";
@@ -56,6 +54,8 @@ public class MainActivity extends ActionBarActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+        ActionBar actionBar=getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
 		initConfig();
         initDb();
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
@@ -143,7 +143,7 @@ public class MainActivity extends ActionBarActivity implements
 				fragment=new TimeTableFragment();
 				break;
 			case NAVIGATION_DRAWER_SUBJECT_STUDY_CLASS_DETAIL:
-                fragment=new SubjectStudyClassFragment();
+                fragment=new HoursDetailFragment();
                 break;
 			default:
 				fragment=new TimeTableFragment();
@@ -161,7 +161,7 @@ public class MainActivity extends ActionBarActivity implements
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.timetable_detail_fragment, container,
+			View rootView = inflater.inflate(R.layout.timetable_fragment, container,
 					false);
 			return rootView;
 		}

@@ -1,4 +1,4 @@
-package com.bigbear.fragment;
+package com.bigbear.mobilett;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -12,8 +12,6 @@ import android.widget.TextView;
 import com.bigbear.common.Text;
 import com.bigbear.common.TimeCommon;
 import com.bigbear.entity.SubjectStudyClass;
-import com.bigbear.mobilett.MainActivity;
-import com.bigbear.mobilett.R;
 import com.bigbear.service.SubjectStudyClassService;
 
 import java.util.Date;
@@ -22,19 +20,19 @@ import java.util.Date;
  * Hiển thị thông tin chi tiết về ngày học và môn học
  * @author luanvu
  */
-public class SubjectStudyClassFragment extends Fragment   {
+public class HoursDetailFragment extends Fragment   {
 	private static final String LOG_TAG="SUBJECT_DAY_FRAGMENT";
 	private Date currentDateSelected;
     private SubjectStudyClassService service;
     private SubjectStudyClass entity;
-	public SubjectStudyClassFragment() {
+	public HoursDetailFragment() {
         super();
     }
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.subject_study_class_fragment, container,
+		View rootView = inflater.inflate(R.layout.hours_detail_fragment, container,
 				false);
         TextView subjectName=(TextView) rootView.findViewById(R.id.subjectName);
         TextView subjectClass=(TextView) rootView.findViewById(R.id.className);
@@ -65,7 +63,11 @@ public class SubjectStudyClassFragment extends Fragment   {
 		super.onAttach(activity);
 		try{
             service=new SubjectStudyClassService(getActivity());
-            Bundle bundle = getArguments();
+            Bundle bundle=getActivity().getIntent().getExtras();
+            /*intent.putExtra(ListTimeTableFragment.TIMETABLE_ID_TAG, timeTalbe.getId());
+            intent.putExtra(MainActivity.ARG_SECTION_NUMBER,
+                    MainActivity.NAVIGATION_DRAWER_TIMETABLE);*/
+//            Bundle bundle = getArguments();
 			if(bundle==null){
 				return;
 			}

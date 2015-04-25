@@ -4,14 +4,13 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white"
+    android:background="@color/gray"
     android:orientation="vertical"
-    tools:context="com.bigbear.mobilett.TimeTableViewActivity">
-
-    <com.thehayro.view.InfiniteViewPager
+    tools:context="com.bigbear.mobilett.MainActivity$PlaceholderFragment" >
+ <com.thehayro.view.InfiniteViewPager
         android:id="@+id/infinite_viewpager"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-    </com.thehayro.view.InfiniteViewPager>
-
+        android:layout_height="fill_parent"
+     >
+</com.thehayro.view.InfiniteViewPager>
 </LinearLayout>

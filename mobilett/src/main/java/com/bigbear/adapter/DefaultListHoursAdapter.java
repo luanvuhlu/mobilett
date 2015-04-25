@@ -1,7 +1,6 @@
 package com.bigbear.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +8,6 @@ import android.widget.TextView;
 
 import com.bigbear.common.Text;
 import com.bigbear.mobilett.R;
-import com.felipecsl.asymmetricgridview.library.Utils;
 import com.felipecsl.asymmetricgridview.library.widget.AsymmetricGridView;
 import com.felipecsl.asymmetricgridview.library.widget.AsymmetricGridViewAdapter;
 
@@ -24,14 +22,11 @@ public class DefaultListHoursAdapter extends AsymmetricGridViewAdapter<TimeTable
     public DefaultListHoursAdapter(final Context context, final AsymmetricGridView listView, final List<TimeTableDayitem> items) {
         super(context, listView, items);
     }
-
     @Override
     @SuppressWarnings("deprecation")
     public View getActualView(final int position, final View convertView, final ViewGroup parent) {
         TextView v;
-
         TimeTableDayitem item = getItem(position);
-
         if (convertView == null) {
             v = new TextView(context);
             v.setId(item.getPosition());
@@ -55,7 +50,6 @@ public class DefaultListHoursAdapter extends AsymmetricGridViewAdapter<TimeTable
         }
         return v;
     }
-
     /**
      * Cho phép ô đó có khả năng được click hay không.
      * @param position
