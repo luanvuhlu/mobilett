@@ -1,4 +1,4 @@
-package com.bigbear.mobilett;
+package com.bigbear.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -23,6 +23,8 @@ import com.bigbear.common.SharedPreferenceUtil;
 import com.bigbear.common.Text;
 import com.bigbear.common.TimeCommon;
 import com.bigbear.entity.TimeTable;
+import com.bigbear.mobilett.HoursDetailActivity;
+import com.bigbear.mobilett.R;
 import com.bigbear.service.TimeTableService;
 import com.felipecsl.asymmetricgridview.library.widget.AsymmetricGridView;
 import com.felipecsl.asymmetricgridview.library.widget.AsymmetricGridViewAdapter;

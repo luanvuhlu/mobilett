@@ -21,9 +21,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="24dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
             android:background="#4CAF50"
-            materialdesign:animate="true"
+            materialdesign:animate="false"
             materialdesign:iconDrawable="@drawable/ic_action_new" />
     </RelativeLayout>
 </LinearLayout>

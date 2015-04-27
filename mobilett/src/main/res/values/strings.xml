@@ -4,6 +4,7 @@
     <string name="list_tt_header">View List</string>
     <string name="title_view">Timetable</string>
     <string  name="title_activity_timetable">TimeTable</string>
+    <string name="title_activity_default_time_table_settings">Default TimeTable Settings</string>
     <string name="unknown">Unknown</string>
     
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -33,6 +34,8 @@
     <string name="pref_title_social_recommendations">khong biet</string>
     <string name="pref_description_social_recommendations">2345234543</string>
     <string name="pref_default_display_name">53454</string>
-    <string name="pref_title_add_friends_to_messages">3454</string>
+    <string name="pref_title_default_timetable">Default TimeTable</string>
+    <string name="pref_sum_default_timetable">Default TimeTable</string>
+
 
 </resources>

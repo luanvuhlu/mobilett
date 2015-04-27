@@ -184,5 +184,16 @@ public class TimeTableService extends AbstractService {
             if(dao!=null)dao.close();
         }
     }
-
+public long delete(long id){
+    TimeTableDao dao=null;
+    try {
+        dao = new TimeTableDao(getContext());
+        dao.open(AbstractDao.WRITE_MODE);
+        return dao.delete(id);
+    }catch (Exception e){
+        throw e;
+    }finally {
+        if(dao!=null)dao.close();
+    }
+}
 }

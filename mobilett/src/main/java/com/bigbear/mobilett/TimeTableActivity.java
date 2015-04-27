@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.bigbear.fragment.TimeTableFragment;
+
 public class TimeTableActivity extends AppCompatActivity{
 
     @Override

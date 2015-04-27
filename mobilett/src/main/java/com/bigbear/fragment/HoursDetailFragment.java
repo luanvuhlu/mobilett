@@ -1,4 +1,4 @@
-package com.bigbear.mobilett;
+package com.bigbear.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.bigbear.common.Text;
 import com.bigbear.common.TimeCommon;
 import com.bigbear.entity.SubjectStudyClass;
+import com.bigbear.mobilett.MainActivity;
+import com.bigbear.mobilett.R;
 import com.bigbear.service.SubjectStudyClassService;
 
 import java.util.Date;

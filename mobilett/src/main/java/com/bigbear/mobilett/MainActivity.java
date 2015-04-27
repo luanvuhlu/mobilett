@@ -14,8 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bigbear.common.TimeCommon;
+import com.bigbear.fragment.HoursDetailFragment;
 import com.bigbear.fragment.ListTimeTableFragment;
 import com.bigbear.fragment.NavigationDrawerFragment;
+import com.bigbear.fragment.TimeTableFragment;
 import com.bigbear.service.UtilService;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;

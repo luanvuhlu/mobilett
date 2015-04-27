@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="pref_example_list_titles">3454</string-array>
-    <string-array name="pref_example_list_values">345345</string-array>
+    <string-array name="Language">
+        <item>English (US)</item>
+        <item>English (UK)</item>
+        <item>French (France)</item>
+        <item>Spanish (Spain)</item>
+        <item>Italian</item>
+    </string-array>
 </resources>

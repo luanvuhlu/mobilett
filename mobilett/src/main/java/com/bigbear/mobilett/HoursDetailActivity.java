@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.bigbear.fragment.HoursDetailFragment;
+
 
 public class HoursDetailActivity extends AppCompatActivity {
 
@@ -32,7 +34,7 @@ public class HoursDetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.hoursDetail:
+            case R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
             default:

@@ -3,6 +3,7 @@ package com.bigbear.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,10 @@ import com.bigbear.fragment.ListTimeTableFragment;
 import com.bigbear.mobilett.MainActivity;
 import com.bigbear.mobilett.R;
 import com.bigbear.mobilett.TimeTableActivity;
+import com.bigbear.service.TimeTableService;
+import com.gc.materialdesign.views.ButtonFlat;
+
+import java.util.List;
 
 /**
  * Adapter cho danh sách Thời khóa biểu
@@ -25,12 +30,14 @@ import com.bigbear.mobilett.TimeTableActivity;
 public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.ViewHolder>{
     private static final String LOG_TAG = "TimeTableAdapter";
     private Context context;
-	private TimeTable[] values;
+	private List<TimeTable> values;
     private long activeTimeTable;
+    private TimeTableService service;
 
-	  public TimeTableAdapter(Context context, TimeTable[] values) {
+	  public TimeTableAdapter(Context context, List<TimeTable> values, TimeTableService service) {
 	    this.context = context;
 	    this.values = values;
+          this.service=service;
           try {
               activeTimeTable= SharedPreferenceUtil.getActiveTimeTable(context);
           } catch (Exception e) {
@@ -49,29 +56,41 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        viewHolder.bindTimeTable(values[i]);
+    public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
+        viewHolder.bindTimeTable(values.get(position));
+        viewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                long id=service.delete(values.get(position).getId());
+                if(id > 0) {
+                    values.remove(position);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, values.size());
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return values.length;
+        return values.size();
     }
     public Context getContext() {
         return context;
     }
-
     public static class ViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener{
         private TimeTable timeTalbe;
-        private final TextView nameTv;
-        private final TextView timeTv;
+        private TextView nameTv;
+        private TextView timeTv;
+        private ButtonFlat deleteBtn;
 
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             nameTv=(TextView)itemView.findViewById(R.id.name);
             timeTv=(TextView)itemView.findViewById(R.id.createdTime);
+            deleteBtn=(ButtonFlat)itemView.findViewById(R.id.deleteBtn);
         }
         public void bindTimeTable(TimeTable timeTalbe){
             this.timeTalbe=timeTalbe;
@@ -90,45 +109,11 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.View
             } catch (Exception e) {
                 Log.e(LOG_TAG, "Exception save timetable id: "+e.getMessage(), e);
             }
-            Intent intent=new Intent(v.getContext(), TimeTableActivity.class);
+            /*Intent intent=new Intent(v.getContext(), TimeTableActivity.class);
             intent.putExtra(ListTimeTableFragment.TIMETABLE_ID_TAG, timeTalbe.getId());
             intent.putExtra(MainActivity.ARG_SECTION_NUMBER,
                     MainActivity.NAVIGATION_DRAWER_TIMETABLE);
-            v.getContext().startActivity(intent);
-            /*FragmentManager fragmentManager = ((MainActivity)v.getContext()).getSupportFragmentManager();
-            Fragment fragment = MainActivity.PlaceholderFragment
-                    .newInstance(MainActivity.NAVIGATION_DRAWER_TIMETABLE);
-            Bundle bundle = new Bundle();
-            bundle.putLong(ListTimeTableFragment.TIMETABLE_ID_TAG, timeTalbe.getId());
-            bundle.putInt(MainActivity.ARG_SECTION_NUMBER,
-                    MainActivity.NAVIGATION_DRAWER_TIMETABLE);
-            fragment.setArguments(bundle);
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, fragment)
-                    .commit();*/
+            v.getContext().startActivity(intent);*/
         }
     }
-
-	  /*@Override
-	  public View getView(int position, View convertView, ViewGroup parent) {
-	    LayoutInflater inflater = (LayoutInflater) context
-	        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	    View rowView = inflater.inflate(R.layout.tt_item, parent, false);
-	    TextView label = (TextView) rowView.findViewById(R.id.label);
-	    TextView time = (TextView) rowView.findViewById(R.id.createdTime);
-        TimeTable item=values[position];
-	    label.setText(item.getStudent().getName());
-	    try{
-	    	time.setText(TimeCommon.formatDate(item.getCreatedDate(), TimeCommon.FORMAT_HHMMSSEDDMMYYYY));
-	    }catch(Exception e){
-	    	time.setText(context.getResources().getString(R.string.unknown));
-	    }
-        if(activeTimeTable!=0 && activeTimeTable==item.getId()){
-            rowView.setBackgroundColor(context.getResources().getColor(R.color.green));
-            label.setTextColor(context.getResources().getColor(R.color.white));
-            time.setTextColor(context.getResources().getColor(R.color.white));
-        }
-	    return rowView;
-	  }*/
-
 }

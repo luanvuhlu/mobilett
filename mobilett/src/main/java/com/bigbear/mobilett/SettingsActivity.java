@@ -1,11 +1,19 @@
 package com.bigbear.mobilett;
 
 import android.os.Bundle;
+import android.preference.ListPreference;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.bigbear.entity.TimeTable;
+import com.bigbear.service.TimeTableService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SettingsActivity extends AppCompatActivity {
     @Override
@@ -37,9 +45,9 @@ public class SettingsActivity extends AppCompatActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_main);
+
         }
+
     }
-
-
 }
 
