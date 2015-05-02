@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
@@ -35,6 +37,10 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import io.codetail.animation.arcanimator.ArcAnimator;
+import io.codetail.animation.arcanimator.Side;
+import io.codetail.widget.RevealFrameLayout;
+
 /**
  * Giao diện chính hiển thị thông tin thời khóa biểu
  *
@@ -47,7 +53,7 @@ public class TimeTableFragment extends Fragment implements OnItemClickListener {
     private static TimeTable ett;
     private long currentTTId;
     private DayAdapter dayAdapter;
-    public static final String SUBJECT_CLASS_STUDY_ID = "SUBJECT_CLASS_STUDY_ID";
+//    public static final String SUBJECT_CLASS_STUDY_ID = "SUBJECT_CLASS_STUDY_ID";
     public static final String SELECTED_DATE = "SELECTED_DATE";
     private TimeTableService service;
     private Date currnetSelected;
@@ -98,9 +104,9 @@ public class TimeTableFragment extends Fragment implements OnItemClickListener {
             }
 
             public void onPageSelected(final Object indicator) {
-                if (indicator instanceof Date && indicator != null) {
-//                    dayAdapter.setDateTitle((Date) indicator);
-                }
+               /* if (indicator instanceof Date && indicator != null) {
+                    dayAdapter.setDateTitle((Date) indicator);
+                }*/
                 currnetSelected = (Date) indicator;
                 try {
                     SharedPreferenceUtil.putSelectedDate(currnetSelected, getActivity());
@@ -117,19 +123,28 @@ public class TimeTableFragment extends Fragment implements OnItemClickListener {
         return rootView;
     }
 
+    private void startAnim(View myView) {
+        // TODO
+//        ArcAnimator.createArcAnimator(myView, 100, 100, 100, Side.LEFT)
+//                .setDuration(500)
+//                .start();
+    }
+
     // Click gridview item
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        startAnim(view);
         TimeTableDayitem item = (TimeTableDayitem) parent.getAdapter().getItem(position);
         if (item == null || item.getType() != TimeTableDayitem.SUB_NAME || Text.isEmpty(item.getDayId()))
             return;
         try {
             long idDay = Long.parseLong(item.getDayId());
-            Intent intent=new Intent(getActivity(), HoursDetailActivity.class);
+            Intent intent = new Intent(getActivity(), HoursDetailActivity.class);
             intent.putExtra(SUBJECT_CLASS_DAY_TAG, idDay);
             intent.putExtra(TIMETABLE_TAG, currentTTId);
             intent.putExtra(SELECTED_DATE, TimeCommon.formatDate(dayAdapter.getSelectedDate(), TimeCommon.FORMAT_DDMMYYYY));
-            startActivity(intent);
+            // TODO
+//            startActivity(intent);
             /*FragmentManager fragmentManager = getActivity()
                     .getSupportFragmentManager();
             Fragment fragment = PlaceholderFragment
@@ -165,10 +180,7 @@ public class TimeTableFragment extends Fragment implements OnItemClickListener {
                 ett = service.findById(ttId);
             }
             currentTTId = ett.getId();
-        } catch (NullPointerException e) {
-            Log.e(LOG_TAG, e.getMessage(), e);
-            // TODO
-        } catch (Exception e) {
+        }catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage(), e);
         }
     }
@@ -187,6 +199,7 @@ public class TimeTableFragment extends Fragment implements OnItemClickListener {
      */
     private class DayAdapter extends InfinitePagerAdapter<Date> {
         private TextView dateText;
+
         public DayAdapter(final Date initValue) {
             super(initValue);
 //            setDateTitle(initValue);
@@ -199,7 +212,7 @@ public class TimeTableFragment extends Fragment implements OnItemClickListener {
             Log.d("InfiniteViewPager", "instantiating page " + indicator);
             final LinearLayout layout = (LinearLayout) ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE))
                     .inflate(R.layout.hours_item, null);
-            dateText=(TextView)layout.findViewById(R.id.date);
+            dateText = (TextView) layout.findViewById(R.id.date);
             setDateTitle(indicator);
             layout.setTag(indicator);
             // Grid view

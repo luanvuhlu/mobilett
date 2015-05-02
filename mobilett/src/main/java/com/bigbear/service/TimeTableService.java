@@ -98,8 +98,8 @@ public class TimeTableService extends AbstractService {
      * @throws Exception
      */
     public ListHours getSubjectStudyOnDate(TimeTable ett, Date d) throws Exception{
-        if(	d==null){
-            throw new NullPointerException("Time is not valid");
+        if(	d==null || ett==null){
+            throw new NullPointerException("Time or TimeTable entity is not valid");
         }
         ListHours lsHoursAdapter=new ListHours();
 

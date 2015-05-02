@@ -30,6 +30,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.codetail.animation.arcanimator.ArcAnimator;
+import io.codetail.animation.arcanimator.Side;
+
 /**
  * Hiện ra list các {@link com.appspot.hlutimetable.timetable.Timetable}
  *
@@ -70,6 +73,9 @@ public class ListTimeTableFragment extends Fragment {
         addBtn.setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
+//                ArcAnimator.createArcAnimator(addBtn, 100, 100, 90, Side.LEFT)
+//                        .setDuration(500)
+//                        .start();
                 scanQr();
             }
         });

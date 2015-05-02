@@ -23,7 +23,6 @@ public class DefaultListHoursAdapter extends AsymmetricGridViewAdapter<TimeTable
         super(context, listView, items);
     }
     @Override
-    @SuppressWarnings("deprecation")
     public View getActualView(final int position, final View convertView, final ViewGroup parent) {
         TextView v;
         TimeTableDayitem item = getItem(position);
@@ -39,12 +38,10 @@ public class DefaultListHoursAdapter extends AsymmetricGridViewAdapter<TimeTable
         v.setGravity(Gravity.CENTER);
         v.setBackgroundColor(context.getResources().getColor(R.color.white));
         if(item.isStudy() && !item.isSeminar()){
-//            v.setTextAppearance(context, R.style.seminar_hours);
             v.setBackgroundColor(context.getResources().getColor(R.color.light_green));
             v.setTextColor(context.getResources().getColor(R.color.white));
         }
         if(item.isSeminar()){
-//            v.setTextAppearance(context, R.style.theory_hours);
             v.setBackgroundColor(context.getResources().getColor(R.color.less_orange));
             v.setTextColor(context.getResources().getColor(R.color.white));
         }
