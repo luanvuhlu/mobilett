@@ -35,12 +35,16 @@
     <style name="hours_item">
         <item name="android:background" >@color/white</item>
         <item name="android:gravity" >center</item>
+        <item name="android:layout_gravity">center</item>
         <item name="android:textSize">@dimen/text_table_small_size</item>
         <item name="android:textColor">@color/black</item>
     </style>
+    <style name="hours_text" parent="hours_item">
+        <item name="android:background" >@android:color/transparent</item>
+    </style>
     <style name="center_text" >
-        <item name="android:textColor">@color/black</item>
-        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
     </style>
     <style name="date_text" >
         <item name="android:textColor">@color/background_material_light</item>

@@ -132,6 +132,40 @@ public class TimeTableService extends AbstractService {
         }
         return lsHoursAdapter;
     }
+    public List<SubjectStudyClass> getSubjectStudyClassOnDate(TimeTable ett, Date d) throws Exception{
+        if(	d==null || ett==null){
+            throw new NullPointerException("Time or TimeTable entity is not valid");
+        }
+        List<SubjectStudyClass>  list=new ArrayList<>();
+
+        if(ett.getSubjectStudyClass()==null){
+            throw new Exception("Subject Class List is null");
+        }
+        for(SubjectStudyClass subjectStudyClass:ett.getSubjectStudyClass()){
+            if(subjectStudyClass==null){
+                throw new Exception("Subject Study Class is null");
+            }
+            if(subjectStudyClass.getSubjectClass()==null){
+                throw new NullPointerException("Subject Class is null");
+            }
+            if(subjectStudyClass.getSubjectClass().getSubject()==null){
+                throw new NullPointerException("Subject is null");
+            }
+
+            if(subjectStudyClass.getSubjectClass().getStartDate()==null || subjectStudyClass.getSubjectClass().getEndDate()==null){
+                throw new NullPointerException("Start date and End date is null in ID: "+subjectStudyClass.getId());
+            }
+            if(TimeCommon.compareDate(d, subjectStudyClass.getSubjectClass().getStartDate()) == TimeCommon.LT ||
+                    TimeCommon.compareDate(subjectStudyClass.getSubjectClass().getEndDate(), d) == TimeCommon.LT){
+                continue;
+            }
+            if(!(TimeCommon.getDayOfWeek(d)+"").equals(subjectStudyClass.getDayName())){
+                continue;
+            }
+            list.add(subjectStudyClass);
+        }
+        return list;
+    }
     // TODO
 
     /**

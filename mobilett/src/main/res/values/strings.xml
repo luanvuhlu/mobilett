@@ -36,6 +36,10 @@
     <string name="pref_default_display_name">53454</string>
     <string name="pref_title_default_timetable">Default TimeTable</string>
     <string name="pref_sum_default_timetable">Default TimeTable</string>
+    <string name="title_activity_time_table_activity2">TimeTableActivity2</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
