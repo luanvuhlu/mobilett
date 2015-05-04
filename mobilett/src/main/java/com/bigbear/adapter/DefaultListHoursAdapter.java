@@ -34,7 +34,7 @@ public class DefaultListHoursAdapter extends AsymmetricGridViewAdapter<TimeTable
         }
         v.setText(Text.retSpace(item.getText()));
         v.setTextColor(context.getResources().getColor(R.color.black));
-        v.setTextSize(context.getResources().getDimension(R.dimen.text_table_small_size));
+        v.setTextSize(context.getResources().getDimension(R.dimen.text_small_size));
         v.setGravity(Gravity.CENTER);
         v.setBackgroundColor(context.getResources().getColor(R.color.white));
         if(item.isStudy() && !item.isSeminar()){

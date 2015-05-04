@@ -19,7 +19,6 @@ import com.appspot.hlutimetable.timetable.Timetable.TimetableOperations.GetTimeT
 import com.appspot.hlutimetable.timetable.model.TimeTableTimeTableResponse;
 import com.bigbear.adapter.TimeTableAdapter;
 import com.bigbear.entity.TimeTable;
-import com.bigbear.listener.SwipeDismissRecyclerViewTouchListener;
 import com.bigbear.mobilett.AppConstants;
 import com.bigbear.mobilett.R;
 import com.bigbear.mobilett.ScannerActivity;
@@ -29,9 +28,6 @@ import com.gc.materialdesign.views.ButtonFloat;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import io.codetail.animation.arcanimator.ArcAnimator;
-import io.codetail.animation.arcanimator.Side;
 
 /**
  * Hiện ra list các {@link com.appspot.hlutimetable.timetable.Timetable}

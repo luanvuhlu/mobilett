@@ -4,6 +4,16 @@ package com.bigbear.entity;
  * Giờ học
  */
 public class SubjectStudyClass {
+
+    public static final String DAY_9_10 = "9-10";
+    public static final String DAY_7_8 = "7-8";
+    public static final String DAY_11_12 = "11-12";
+    public static final String DAY_5_6 = "5-6";
+    public static final String DAY_3_4 = "3-4";
+    public static final String DAY_1_2 = "1-2";
+
+    public static final String SEMINAR_TYPE="S";
+    public static final String THEORY_TYPE="T";
     /**
      * Loại giờ học. S hoặc T
      */

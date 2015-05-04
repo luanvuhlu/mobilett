@@ -5,191 +5,206 @@
     android:layout_weight="6"
     android:orientation="vertical"
     tools:context="com.bigbear.mobilett.TimeTableActivity2$PlaceholderFragment">
+
     <LinearLayout
-        android:orientation="horizontal"
+        style="@style/hours_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        >
+        android:orientation="horizontal">
+
         <com.bigbear.view.HoursTextView
-            style="@style/hours_text"
             android:id="@+id/h1"
+            style="@style/hours_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="1-2"
-            />
+            android:text="1-2" />
+
         <com.bigbear.view.HoursTextView
-            style="@style/hours_text"
             android:id="@+id/s1"
+            style="@style/subject_name"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:text="New Text "
-            />
+            android:text=" " />
+
         <com.bigbear.view.HoursTextView
-            style="@style/hours_text"
             android:id="@+id/l1"
+            style="@style/hours_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="New Text"
-            />
+            android:text="" />
     </LinearLayout>
+    <View style="@style/hr_divider_hours" />
+
+
     <LinearLayout
-        android:orientation="horizontal"
+        style="@style/hours_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        >
+        android:orientation="horizontal">
+
         <com.bigbear.view.HoursTextView
-            style="@style/hours_text"
             android:id="@+id/h2"
+            style="@style/hours_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="New Text"
-            />
+            android:text="3-4" />
+
         <com.bigbear.view.HoursTextView
-            style="@style/hours_text"
             android:id="@+id/s2"
+            style="@style/subject_name"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:text="New Text "
-            />
+            android:text=" " />
+
         <com.bigbear.view.HoursTextView
-            style="@style/hours_text"
             android:id="@+id/l2"
+            style="@style/hours_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="New Text"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        >
-        <com.bigbear.view.HoursTextView
-            style="@style/hours_text"
-            android:id="@+id/h3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="New Text"
-            />
-        <com.bigbear.view.HoursTextView
-            style="@style/hours_text"
-            android:id="@+id/s3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:text="New Text "
-            />
-        <com.bigbear.view.HoursTextView
-            style="@style/hours_text"
-            android:id="@+id/l3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="New Text"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        >
-        <com.bigbear.view.HoursTextView
-            style="@style/hours_text"
-            android:id="@+id/h4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="New Text"
-            />
-        <com.bigbear.view.HoursTextView
-            style="@style/hours_text"
-            android:id="@+id/s4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:text="New Text "
-            />
-        <com.bigbear.view.HoursTextView
-            style="@style/hours_text"
-            android:id="@+id/l4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="New Text"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        >
-        <com.bigbear.view.HoursTextView
-            style="@style/hours_text"
-            android:id="@+id/h5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="New Text"
-            />
-        <com.bigbear.view.HoursTextView
-            style="@style/hours_text"
-            android:id="@+id/s5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:text="New Text "
-            />
-        <com.bigbear.view.HoursTextView
-            style="@style/hours_text"
-            android:id="@+id/l5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="New Text"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        >
-        <com.bigbear.view.HoursTextView
-            style="@style/hours_text"
-            android:id="@+id/h6"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="New Text"
-            />
-        <com.bigbear.view.HoursTextView
-            style="@style/hours_text"
-            android:id="@+id/s6"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:text="New Text "
-            />
-        <com.bigbear.view.HoursTextView
-            style="@style/hours_text"
-            android:id="@+id/l6"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="New Text"
-            />
+            android:text="" />
     </LinearLayout>
 
+    <View style="@style/hr_divider_hours" />
+
+    <LinearLayout
+        style="@style/hours_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <com.bigbear.view.HoursTextView
+            android:id="@+id/h3"
+            style="@style/hours_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="5-6" />
+
+        <com.bigbear.view.HoursTextView
+            android:id="@+id/s3"
+            style="@style/subject_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:text=" " />
+
+        <com.bigbear.view.HoursTextView
+            android:id="@+id/l3"
+            style="@style/hours_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="" />
+    </LinearLayout>
+
+    <View style="@style/hr_divider_hours" />
+
+    <LinearLayout
+        style="@style/hours_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <com.bigbear.view.HoursTextView
+            android:id="@+id/h4"
+            style="@style/hours_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="7-8" />
+
+        <com.bigbear.view.HoursTextView
+            android:id="@+id/s4"
+            style="@style/subject_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:text=" " />
+
+        <com.bigbear.view.HoursTextView
+            android:id="@+id/l4"
+            style="@style/hours_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="" />
+    </LinearLayout>
+
+    <View style="@style/hr_divider_hours" />
+
+    <LinearLayout
+        style="@style/hours_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <com.bigbear.view.HoursTextView
+            android:id="@+id/h5"
+            style="@style/hours_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="9-10" />
+
+        <com.bigbear.view.HoursTextView
+            android:id="@+id/s5"
+            style="@style/subject_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:text=" " />
+
+        <com.bigbear.view.HoursTextView
+            android:id="@+id/l5"
+            style="@style/hours_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="" />
+    </LinearLayout>
+
+    <View style="@style/hr_divider_hours" />
+
+    <LinearLayout
+        style="@style/hours_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <com.bigbear.view.HoursTextView
+            android:id="@+id/h6"
+            style="@style/hours_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="11-12" />
+
+        <com.bigbear.view.HoursTextView
+            android:id="@+id/s6"
+            style="@style/hours_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:text="" />
+
+        <com.bigbear.view.HoursTextView
+            android:id="@+id/l6"
+            style="@style/hours_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="" />
+    </LinearLayout>
 </LinearLayout>

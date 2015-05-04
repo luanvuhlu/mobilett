@@ -42,7 +42,7 @@ public class TimeTableFragment2 extends Fragment implements AdapterView.OnItemCl
     public static final String SELECTED_DATE = "SELECTED_DATE";
     private TimeTableService service;
     private Date currnetSelected;
-    private HoursTextView[][] tvs;
+    private HoursTextView[][] tvs = new HoursTextView[6][3];
     private List<SubjectStudyClass> subjectStudyClassList;
 
     public TimeTableFragment2() {
@@ -78,9 +78,9 @@ public class TimeTableFragment2 extends Fragment implements AdapterView.OnItemCl
                 currnetSelected = new Date();
             }
         }
-        View rootView = inflater.inflate(R.layout.fragment_time_table_activity2, container, false);
-        subjectStudyClassList=new ArrayList<>();
-        initTextViews(rootView);
+        View rootView = inflater.inflate(R.layout.timetable_fragment, container, false);
+        subjectStudyClassList = new ArrayList<>();
+
         final InfiniteViewPager viewPager = (InfiniteViewPager) rootView.findViewById(R.id.infinite_viewpager);
         dayAdapter = new DayAdapter(currnetSelected);
         viewPager.setAdapter(dayAdapter);
@@ -111,10 +111,10 @@ public class TimeTableFragment2 extends Fragment implements AdapterView.OnItemCl
 
     /**
      * Init textview
+     *
      * @param rootView
      */
     private void initTextViews(View rootView) {
-        tvs = new HoursTextView[6][3];
         tvs[0][0] = (HoursTextView) rootView.findViewById(R.id.h1);
         tvs[0][1] = (HoursTextView) rootView.findViewById(R.id.s1);
         tvs[0][2] = (HoursTextView) rootView.findViewById(R.id.l1);
@@ -142,6 +142,7 @@ public class TimeTableFragment2 extends Fragment implements AdapterView.OnItemCl
 
     /**
      * Hiệu ứng chuyển động cho view
+     *
      * @param myView
      */
     private void startAnim(View myView) {
@@ -207,71 +208,71 @@ public class TimeTableFragment2 extends Fragment implements AdapterView.OnItemCl
         public ViewGroup instantiateItem(final Date indicator) {
             Log.d("InfiniteViewPager", "instantiating page " + indicator);
             final LinearLayout layout = (LinearLayout) ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE))
-                    .inflate(R.layout.hours_item, null);
-//            dateText = (HoursTextView) layout.findViewById(R.id.date);
-            setDateTitle(indicator);
+                    .inflate(R.layout.hours_item2, null);
+            initTextViews(layout);
+//            dateText = (TextView) layout.findViewById(R.id.date);
+//            setDateTitle(indicator);
             layout.setTag(indicator);
             try {
-                //fillData(indicator);
+                fillData(indicator);
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e(LOG_TAG, "Error: "+e.getMessage(), e);
+                Log.e(LOG_TAG, "Error: " + e.getMessage(), e);
             }
             return layout;
         }
 
         /**
          * Chèn data vào các text field
+         *
          * @param d Ngày hiện tại
          * @throws Exception
          */
         private void fillData(Date d) throws Exception {
             subjectStudyClassList.clear();
             subjectStudyClassList.addAll(service.getSubjectStudyClassOnDate(ett, d));
-            for(SubjectStudyClass subjectStudyClass:subjectStudyClassList){
-                /*if(SubjectStudyClass.DAY_1_2.equalsIgnoreCase(subjectStudyClass.getDayHours())){
-                    tvs[0][1].setText(subjectStudyClass.getSubjectClass().getSubject().getSubjectName());
-                    tvs[0][1].setSubjectStudyClass(subjectStudyClass);
-
-                    tvs[0][2].setText(subjectStudyClass.getDayLocations());
-                    continue;
-                }*/
-                /*if(SubjectStudyClass.DAY_3_4.equalsIgnoreCase(subjectStudyClass.getDayHours())){
-                    tvs[1][1].setText(subjectStudyClass.getSubjectClass().getSubject().getSubjectName());
-                    tvs[1][1].setSubjectStudyClass(subjectStudyClass);
-
-                    tvs[1][2].setText(subjectStudyClass.getDayLocations());
+            int textColor;
+            int currentRow=0;
+            for (SubjectStudyClass subjectStudyClass : subjectStudyClassList) {
+                if (SubjectStudyClass.SEMINAR_TYPE.equals(subjectStudyClass.getClassType())) {
+                    textColor = getActivity().getResources().getColor(R.color.less_orange);
+                } else {
+                    textColor = getActivity().getResources().getColor(R.color.light_green);
+                }
+                currentRow = mapHours(subjectStudyClass.getDayHours());
+                // TODO alert error
+                if (currentRow == 0) {
                     continue;
                 }
-                if(SubjectStudyClass.DAY_5_6.equalsIgnoreCase(subjectStudyClass.getDayHours())){
-                    tvs[2][1].setText(subjectStudyClass.getSubjectClass().getSubject().getSubjectName());
-                    tvs[2][1].setSubjectStudyClass(subjectStudyClass);
-
-                    tvs[2][2].setText(subjectStudyClass.getDayLocations());
-                    continue;
-                }
-                if(SubjectStudyClass.DAY_7_8.equalsIgnoreCase(subjectStudyClass.getDayHours())){
-                    tvs[3][1].setText(subjectStudyClass.getSubjectClass().getSubject().getSubjectName());
-                    tvs[3][1].setSubjectStudyClass(subjectStudyClass);
-
-                    tvs[3][2].setText(subjectStudyClass.getDayLocations());
-                    continue;
-                }
-                if(SubjectStudyClass.DAY_9_10.equalsIgnoreCase(subjectStudyClass.getDayHours())){
-                    tvs[4][1].setText(subjectStudyClass.getSubjectClass().getSubject().getSubjectName());
-                    tvs[4][1].setSubjectStudyClass(subjectStudyClass);
-
-                    tvs[4][2].setText(subjectStudyClass.getDayLocations());
-                    continue;
-                }
-                if(SubjectStudyClass.DAY_11_12.equalsIgnoreCase(subjectStudyClass.getDayHours())){
-                    tvs[5][1].setText(subjectStudyClass.getSubjectClass().getSubject().getSubjectName());
-                    tvs[5][1].setSubjectStudyClass(subjectStudyClass);
-
-                    tvs[5][2].setText(subjectStudyClass.getDayLocations());
-                    continue;
-                }*/
+                tvs[currentRow][0].setTextColor(textColor);
+                tvs[currentRow][1].setText(subjectStudyClass.getSubjectClass().getSubject().getSubjectName());
+                tvs[currentRow][1].setSubjectStudyClass(subjectStudyClass);
+                tvs[currentRow][1].setTextColor(textColor);
+                tvs[currentRow][2].setText(subjectStudyClass.getDayLocations());
+                tvs[currentRow][2].setTextColor(textColor);
             }
+        }
+
+        private int mapHours(String hours) {
+            if (SubjectStudyClass.DAY_1_2.equals(hours)) {
+                return 0;
+            }
+            if (SubjectStudyClass.DAY_3_4.equals(hours)) {
+                return 1;
+            }
+            if (SubjectStudyClass.DAY_5_6.equals(hours)) {
+                return 2;
+            }
+            if (SubjectStudyClass.DAY_7_8.equals(hours)) {
+                return 3;
+            }
+            if (SubjectStudyClass.DAY_9_10.equals(hours)) {
+                return 4;
+            }
+            if (SubjectStudyClass.DAY_11_12.equals(hours)) {
+                return 6;
+            }
+            return 0;
         }
 
         @Override
@@ -289,12 +290,12 @@ public class TimeTableFragment2 extends Fragment implements AdapterView.OnItemCl
         }
 
         public void setDateTitle(Date d) {
-            /*try {
+            try {
                 dateText.setText(TimeCommon.formatDate(d, TimeCommon.FORMAT_EDDMMYYYY));
             } catch (Exception e) {
                 Log.e(LOG_TAG, "Format date fail", e);
                 dateText.setText("Ngày nào năm đó");
-            }*/
+            }
         }
     }
 }

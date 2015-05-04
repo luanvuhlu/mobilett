@@ -9,11 +9,8 @@
          https://developer.android.com/design/patterns/navigation-drawer.html
     -->
     <dimen name="navigation_drawer_width">240dp</dimen>
-    <dimen name="text_table_small_size">14dp</dimen>
-    <dimen name="text_table_tiny_size">10dp</dimen>
-    <dimen name="cell_table_margin">1dp</dimen>
-    <dimen name="cell_table_min_height">50dp</dimen>
-    <dimen name="header_table_min_height">30dp</dimen>
+    <dimen name="text_small_size">16dp</dimen>
+    <dimen name="text_medium_size">20dp</dimen>
     <dimen name="text_large_size">25dp</dimen>
 
 </resources>
