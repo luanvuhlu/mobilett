@@ -55,7 +55,7 @@ public class DefaultListHoursAdapter extends AsymmetricGridViewAdapter<TimeTable
     @Override
     public boolean isEnabled(int position) {
         TimeTableDayitem item = getItem(position);
-        return item.getType()==TimeTableDayitem.SUB_NAME && !Text.isEmpty(item.getText());
+        return item.getType()==TimeTableDayitem.SUB_NAME && !Text.isNullOrEmpty(item.getText());
     }
 
 }

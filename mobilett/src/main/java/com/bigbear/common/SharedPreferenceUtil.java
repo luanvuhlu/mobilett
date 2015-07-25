@@ -3,8 +3,8 @@ package com.bigbear.common;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import java.sql.Time;
-import java.text.ParseException;
+import com.google.api.client.repackaged.com.google.common.base.Strings;
+
 import java.util.Date;
 
 /**
@@ -31,10 +31,18 @@ public class SharedPreferenceUtil {
         edit.putString(PRE_SELECTED_DATE, value);
         edit.commit();
     }
+    public static void putSelectedDate(String dStr, Context context) throws Exception {
+        if(Strings.isNullOrEmpty(dStr)){
+            return;
+        }
+        SharedPreferences.Editor edit=getEdit(context);
+        edit.putString(PRE_SELECTED_DATE, dStr);
+        edit.commit();
+    }
     public static Date getSelectedDate(Context context) throws Exception {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARE_PRE_NAME, Context.MODE_PRIVATE);
         String d=sharedPreferences.getString(PRE_SELECTED_DATE, "");
-        if(Text.isEmpty(d)){
+        if(Text.isNullOrEmpty(d)){
             throw new Exception("Preference empty "+PRE_SELECTED_DATE);
         }
         return TimeCommon.parseDate(d, TimeCommon.FORMAT_DDMMYYYY);

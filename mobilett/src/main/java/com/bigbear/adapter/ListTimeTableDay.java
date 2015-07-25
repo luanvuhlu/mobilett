@@ -38,7 +38,7 @@ public class ListTimeTableDay {
         boolean isSeminar;
 		for(int i=1; i < 12; i+=2){
 			hours=hoursDetail.get(i+"-"+(i+1));
-            isStudy=!Text.isEmpty(hours.getDayId());
+            isStudy=!Text.isNullOrEmpty(hours.getDayId());
             isSeminar=isStudy && HoursEntity.SEMINAR_TYPE.equals(hours.getClassType());
 
 			hourItems.add(new TimeTableDayitem(1,  1, index++, hours.getHours(),

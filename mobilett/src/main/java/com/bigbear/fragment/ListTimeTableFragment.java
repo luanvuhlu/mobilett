@@ -69,9 +69,6 @@ public class ListTimeTableFragment extends Fragment {
         addBtn.setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
-//                ArcAnimator.createArcAnimator(addBtn, 100, 100, 90, Side.LEFT)
-//                        .setDuration(500)
-//                        .start();
                 scanQr();
             }
         });
@@ -87,9 +84,9 @@ public class ListTimeTableFragment extends Fragment {
      * Hiện ra giao diện để quét QR Code
      */
     private void scanQr() {
-        displayTimeTableFromRandomKey("NFPYXK53U69Q4DMQA7RW4MMHFIN2HM");
-//        Intent intent=new Intent(getActivity(), ScannerActivity.class);
-//        startActivityForResult(intent, QR_CODE_SCAN);
+//        displayTimeTableFromRandomKey("NFPYXK53U69Q4DMQA7RW4MMHFIN2HM");
+        Intent intent=new Intent(getActivity(), ScannerActivity.class);
+        startActivityForResult(intent, QR_CODE_SCAN);
     }
 
     @Override
@@ -155,17 +152,20 @@ public class ListTimeTableFragment extends Fragment {
                         success = false;
                     }
                 } else {
-                    success = false;
                     Log.e(LOG_TAG, "No timetable were returned by the API.");
+                    scanFinish("No timetable found!");
+                    return;
                 }
-                showMessge(success ? "Success" : "Fail");
-                addBtn.setEnabled(true);
+                scanFinish(success ? "Success" : "Fail");
             }
         };
         addBtn.setEnabled(false);
         getAndDisplayTimetable.execute(rdKey);
     }
-
+private void scanFinish(String msg){
+    showMessge(msg);
+    addBtn.setEnabled(true);
+}
     /**
      * Lưu Thời khóa biểu và database trên máy từ response của server
      *

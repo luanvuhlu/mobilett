@@ -133,7 +133,7 @@ public class Text {
      * @param txt
      * @return boolean
      */
-    public static boolean isEmpty(String txt){
+    public static boolean isNullOrEmpty(String txt){
         return txt==null||txt.equals("");
     }
 }

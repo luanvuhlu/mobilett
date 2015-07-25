@@ -6,4 +6,8 @@
         android:id="@+id/action_settings"
         android:title="Settings 2"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/jumpDay"
+        android:title="Jump"
+        app:showAsAction="always" />
 </menu>

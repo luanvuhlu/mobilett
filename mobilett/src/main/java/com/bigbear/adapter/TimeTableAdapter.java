@@ -2,8 +2,6 @@ package com.bigbear.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,10 +12,7 @@ import android.widget.TextView;
 import com.bigbear.common.SharedPreferenceUtil;
 import com.bigbear.common.TimeCommon;
 import com.bigbear.entity.TimeTable;
-import com.bigbear.fragment.ListTimeTableFragment;
-import com.bigbear.mobilett.MainActivity;
 import com.bigbear.mobilett.R;
-import com.bigbear.mobilett.TimeTableActivity;
 import com.bigbear.service.TimeTableService;
 import com.gc.materialdesign.views.ButtonFlat;
 
@@ -109,11 +104,6 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.View
             } catch (Exception e) {
                 Log.e(LOG_TAG, "Exception save timetable id: "+e.getMessage(), e);
             }
-            /*Intent intent=new Intent(v.getContext(), TimeTableActivity.class);
-            intent.putExtra(ListTimeTableFragment.TIMETABLE_ID_TAG, timeTalbe.getId());
-            intent.putExtra(MainActivity.ARG_SECTION_NUMBER,
-                    MainActivity.NAVIGATION_DRAWER_TIMETABLE);
-            v.getContext().startActivity(intent);*/
         }
     }
 }

@@ -22,6 +22,7 @@ import com.bigbear.entity.SubjectStudyClass;
 import com.bigbear.entity.TimeTable;
 import com.bigbear.mobilett.HoursDetailActivity;
 import com.bigbear.mobilett.R;
+import com.bigbear.mobilett.TimeTableActivity2;
 import com.bigbear.service.TimeTableService;
 import com.bigbear.view.HoursTextView;
 import com.thehayro.view.InfinitePagerAdapter;
@@ -70,7 +71,7 @@ public class TimeTableFragment2 extends Fragment implements AdapterView.OnItemCl
                 Log.e(LOG_TAG, "Parse date error: " + e.getMessage(), e);
                 currnetSelected = new Date();
             }
-        } else {
+        } else if(currnetSelected==null) {
             try {
                 currnetSelected = SharedPreferenceUtil.getSelectedDate(getActivity());
             } catch (Exception e) {
@@ -89,7 +90,7 @@ public class TimeTableFragment2 extends Fragment implements AdapterView.OnItemCl
 
             public void onPageScrolled(final Object indicator, final float positionOffset,
                                        final int positionOffsetPixels) {
-
+                ((TimeTableActivity2)getActivity()).setDateTextActionBar((Date)indicator);
             }
 
             public void onPageSelected(final Object indicator) {
@@ -157,7 +158,7 @@ public class TimeTableFragment2 extends Fragment implements AdapterView.OnItemCl
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         startAnim(view);
         TimeTableDayitem item = (TimeTableDayitem) parent.getAdapter().getItem(position);
-        if (item == null || item.getType() != TimeTableDayitem.SUB_NAME || Text.isEmpty(item.getDayId()))
+        if (item == null || item.getType() != TimeTableDayitem.SUB_NAME || Text.isNullOrEmpty(item.getDayId()))
             return;
         try {
             long idDay = Long.parseLong(item.getDayId());
@@ -186,6 +187,10 @@ public class TimeTableFragment2 extends Fragment implements AdapterView.OnItemCl
                 ett = service.findById(ttId);
             }
             currentTTId = ett.getId();
+            String dateStr=getArguments()==null?"":getArguments().getString(SELECTED_DATE);
+            if(!Text.isNullOrEmpty(dateStr)){
+                currnetSelected=TimeCommon.parseDate(dateStr, TimeCommon.FORMAT_DDMMYYYY);
+            }
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage(), e);
         }

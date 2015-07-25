@@ -46,7 +46,7 @@ public class HoursDetailFragment extends Fragment   {
             // TODO
             Log.d(LOG_TAG, "Entity is null");
         }else {
-            if(Text.isEmpty(entity.getSubjectClass().getSeminarClass())) {
+            if(Text.isNullOrEmpty(entity.getSubjectClass().getSeminarClass())) {
                 subjectNameStr = entity.getSubjectClass().getTheoryClass();
             }else{
                 subjectNameStr = entity.getSubjectClass().getSeminarClass();
@@ -66,16 +66,12 @@ public class HoursDetailFragment extends Fragment   {
 		try{
             service=new SubjectStudyClassService(getActivity());
             Bundle bundle=getActivity().getIntent().getExtras();
-            /*intent.putExtra(ListTimeTableFragment.TIMETABLE_ID_TAG, timeTalbe.getId());
-            intent.putExtra(MainActivity.ARG_SECTION_NUMBER,
-                    MainActivity.NAVIGATION_DRAWER_TIMETABLE);*/
-//            Bundle bundle = getArguments();
 			if(bundle==null){
 				return;
 			}
-            currentDateSelected=TimeCommon.parseDate(bundle.getString(TimeTableFragment.SELECTED_DATE), TimeCommon.FORMAT_DDMMYYYY);
-            long ttId=bundle.getLong(TimeTableFragment.TIMETABLE_TAG);
-            long dayId=bundle.getLong(TimeTableFragment.SUBJECT_CLASS_DAY_TAG);
+            currentDateSelected=TimeCommon.parseDate(bundle.getString(TimeTableFragment2.SELECTED_DATE), TimeCommon.FORMAT_DDMMYYYY);
+            long ttId=bundle.getLong(TimeTableFragment2.TIMETABLE_TAG);
+            long dayId=bundle.getLong(TimeTableFragment2.SUBJECT_CLASS_DAY_TAG);
             if(ttId==0 || dayId ==0){
                 Log.e(LOG_TAG, "Timetable id or Day Id is zero");
                 throw new Exception();
@@ -84,17 +80,8 @@ public class HoursDetailFragment extends Fragment   {
 		}catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             // TODO
-//			((MainActivity)getActivity()).onNavigationDrawerItemSelected(MainActivity.NAVIGATION_DRAWER_TIMETABLE_LIST);
 			Log.e(LOG_TAG, e.getMessage(), e);
 		}
 	}
-	private void setDateTitle(){
-		try {
-			MainActivity.setActionBar(TimeCommon.formatDate(currentDateSelected, TimeCommon.FORMAT_EDDMMYYYY), getActivity());
-		} catch (Exception e) {
-			Log.e(LOG_TAG, "Format date fail", e);
-			MainActivity.setActionBar("Ngày nào năm đó", getActivity());
-		}
-	}
-	
+
 }
